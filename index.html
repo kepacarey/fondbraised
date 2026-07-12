@@ -113,15 +113,15 @@
         .hero-layout h2 { font-family: var(--font-heading); font-size: 3rem; color: var(--accent-secondary); margin: 15px 0 5px 0; font-weight: bold; text-transform: uppercase; line-height: 1.1; }
         .hero-layout h3 { font-size: 1.5rem; font-style: italic; font-weight: normal; margin: 0 0 50px 0; opacity: 0.85; color: var(--text-color); }
         
-        /* Dynamic Emblem Element (Hidden by default) */
+        /* Dynamic Emblem Element */
         .hero-emblem {
             max-width: 450px;
             width: 100%;
             height: auto;
             display: none;
             margin-bottom: 40px;
-            position: relative; /* Setup for alignment fix */
-            right: -25px;       /* Center handle: Shift entire image right 25px */
+            /* Shifting right to optically balance the center due to the protruding skillet handle */
+            transform: translateX(35px); 
         }
 
         /* Logic to flip visibility based on theme selection */
