@@ -186,6 +186,7 @@
         form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 30px auto; }
         input, textarea, select { padding: 12px; background: var(--card-bg); border: var(--border-style); color: var(--text-color); font-family: inherit; font-size: 1rem; }
         input[type="date"] { color: var(--text-color); }
+        option { background: #111; color: #fff; }
         ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
         
         /* Floating Tracker Badge */
@@ -206,7 +207,7 @@
     <header>
         <div class="logo-container" onclick="navigateToView('home-view')">
             <span class="logo-text">FOND</span>
-            <img class="logo-image" src="cast-iron-logo.png" alt="FOND Emblem Logo">
+            <img class="logo-image" src="cast-iron-logo.png?v=2" alt="FOND Emblem Logo">
         </div>
         <nav>
             <a onclick="navigateToView('home-view')">Home</a>
@@ -229,9 +230,10 @@
             </div>
 
             <!-- Cast Iron Skillet drawing logo (displays ONLY in Black & Gold mode) -->
-            <img class="hero-emblem" src="cast-iron-logo.png" alt="FOND Braised Meat Subs - Cast Iron Emblem">
+            <img class="hero-emblem" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Cast Iron Emblem">
             
-            <button class="action-button" onclick="navigateToView('menu-view')">View Menu & Pre-Order</button>
+            <!-- Updated dynamic homepage action button -->
+            <button class="action-button" onclick="navigateToView('menu-view')">View Menu</button>
         </div>
     </div>
 
@@ -305,6 +307,14 @@
                 </div>
             </div>
             <div class="menu-card">
+                <div class="menu-image-placeholder">📷 [Image: FOND Hoodie]</div>
+                <div class="menu-details">
+                    <div class="menu-hdr"><span>Heavyweight Braise Hoodie</span><span>$48.00</span></div>
+                    <div class="menu-body">Thick 450gsm cross-grain fleece built for cold morning prep runs and late-night breakdowns. Features a clean embroidered cast-iron emblem on the left chest and oversized typography down the right sleeve.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Heavyweight Braise Hoodie', 48.00)">Add To Bag</button>
+                </div>
+            </div>
+            <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: FOND Hat]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Flat-Top Snapback</span><span>$22.00</span></div>
@@ -361,8 +371,20 @@
                 <input type="number" placeholder="Estimated Guest Count" required min="1" style="flex: 1;">
             </div>
             
-            <input type="text" placeholder="Event City & State (e.g., Manchester, NH)" required>
-            <textarea rows="4" placeholder="Tell us a bit about your event (Vibe, custom requests, etc.)...." required></textarea>
+            <!-- Cascading Dropdown Layout Implementation -->
+            <div style="display: flex; gap: 15px;">
+                <select id="catering-state" required style="flex: 1;" onchange="updateCateringCities()" title="Select State">
+                    <option value="" disabled selected>Select State</option>
+                    <option value="NH">New Hampshire</option>
+                    <option value="MA">Massachusetts</option>
+                </select>
+                
+                <select id="catering-city" required style="flex: 1;" disabled title="Select City">
+                    <option value="" disabled selected>Select City</option>
+                </select>
+            </div>
+            
+            <textarea rows="4" placeholder="Tell us a bit about your event (Vibe, location details, custom requests, etc.)...." required></textarea>
             
             <button type="submit" class="action-button">Send Booking Request</button>
         </form>
@@ -386,9 +408,9 @@
         </div>
     </div>
 
-    <!-- FLOATING CART BADGE -->
+    <!-- FLOATING CART BADGE (Text updated to "Pre-Order") -->
     <div id="floating-cart-badge" onclick="toggleCartDrawer()">
-        🥖 <span>MY BAG</span> (<span id="badge-count-value">0</span>)
+        🥖 <span>PRE-ORDER</span> (<span id="badge-count-value">0</span>)
     </div>
 
     <!-- JAVASCRIPT APPLICATION CORE -->
@@ -396,7 +418,13 @@
         let shoppingCart = [];
         let runningTotal = 0;
 
-        // View Router
+        // Regional City Directory Schema
+        const cityMapData = {
+            "NH": ["Manchester", "Nashua", "Concord", "Portsmouth", "Salem", "Derry", "Bedford"],
+            "MA": ["Boston", "Lowell", "Lawrence", "Tewksbury", "Chelmsford", "Andover", "Haverhill"]
+        };
+
+        // Router Control
         function navigateToView(viewId) {
             document.querySelectorAll('.view-content').forEach(view => {
                 view.classList.remove('active-view');
@@ -412,6 +440,27 @@
                 bodyElement.removeAttribute('data-theme');
             } else {
                 bodyElement.setAttribute('data-theme', themeName);
+            }
+        }
+
+        // Dropdown Router Logic
+        function updateCateringCities() {
+            const stateSelector = document.getElementById('catering-state');
+            const citySelector = document.getElementById('catering-city');
+            const targetState = stateSelector.value;
+
+            citySelector.innerHTML = '<option value="" disabled selected>Select City</option>';
+            
+            if (cityMapData[targetState]) {
+                citySelector.disabled = false;
+                cityMapData[targetState].forEach(cityName => {
+                    const optionNode = document.createElement('option');
+                    optionNode.value = cityName;
+                    optionNode.textContent = cityName;
+                    citySelector.appendChild(optionNode);
+                });
+            } else {
+                citySelector.disabled = true;
             }
         }
 
@@ -464,8 +513,11 @@
 
         function processFormSubmission(event) {
             event.preventDefault();
-            alert("Boom! Request sent. The FOND crew will check the truck calendar and hit you back within 24 hours.");
+            const chosenCity = document.getElementById('catering-city').value;
+            const chosenState = document.getElementById('catering-state').value;
+            alert(`Boom! Request sent for an event in ${chosenCity}, ${chosenState}. The FOND crew will check the truck calendar and hit you back within 24 hours.`);
             document.getElementById('cateringForm').reset();
+            document.getElementById('catering-city').disabled = true;
             navigateToView('home-view');
         }
     </script>
