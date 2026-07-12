@@ -170,6 +170,9 @@
         .add-to-cart-btn { background: transparent; border: 1px solid var(--accent-secondary); color: var(--accent-secondary); padding: 8px; width: 100%; cursor: pointer; font-weight: bold; text-transform: uppercase; margin-top: 15px; }
         .add-to-cart-btn:hover { background: var(--accent-secondary); color: #000; }
 
+        /* Style tweaks specifically for item option selectors */
+        .item-options-select { width: 100%; padding: 6px; margin: 10px 0 5px 0; background: rgba(0,0,0,0.2); border: 1px solid rgba(243,234,211,0.2); color: var(--text-color); font-size: 0.85rem; }
+
         /* Truck Tracker Layout Enhancements */
         .map-placeholder { height: 350px; background: rgba(0,0,0,0.2); border: var(--border-style); margin-bottom: 30px; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.5rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px; }
 
@@ -212,27 +215,21 @@
         <nav>
             <a onclick="navigateToView('home-view')">Home</a>
             <a onclick="navigateToView('menu-view')">The Menu</a>
-            <a onclick="navigateToView('merch-view')">Merch</a>
             <a onclick="navigateToView('schedule-view')">Truck Tracker</a>
             <a onclick="navigateToView('catering-view')">Catering</a>
+            <a onclick="navigateToView('merch-view')">Merch</a>
         </nav>
     </header>
 
     <!-- VIEW 1: HOME PANEL -->
     <div id="home-view" class="view-content active-view">
         <div class="hero-layout">
-            
-            <!-- Standard dynamic text stack used for Default & Navy styles -->
             <div class="hero-text-stack">
                 <h1>FOND</h1>
                 <h2>Braised Meat Subs</h2>
                 <h3>Slow Cooked & Intensely flavorful</h3>
             </div>
-
-            <!-- Cast Iron Skillet drawing logo (displays ONLY in Black & Gold mode) -->
             <img class="hero-emblem" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Cast Iron Emblem">
-            
-            <!-- Updated dynamic homepage action button -->
             <button class="action-button" onclick="navigateToView('menu-view')">View Menu</button>
         </div>
     </div>
@@ -293,7 +290,7 @@
         </div>
     </div>
 
-    <!-- VIEW 3: MERCHANDISE STORE -->
+    <!-- VIEW 3: MERCHANDISE STORE (Simplified Names, Updated Tee, Swapped Hoodie for Apron) -->
     <div id="merch-view" class="view-content">
         <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">FOND GEAR</h1>
         <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px;">Rep the foundation of flavor wherever you go.</p>
@@ -301,33 +298,40 @@
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: FOND T-Shirt]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>The Line Cook Tee</span><span>$25.00</span></div>
-                    <div class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or backyard BBQs. Features our clean, vintage script logo printed across the chest.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('The Line Cook Tee', 25.00)">Add To Bag</button>
+                    <div class="menu-hdr"><span>Logo Tee</span><span>$25.00</span></div>
+                    <div class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our updated custom cast-iron skillet emblem bold and centered across the chest.</div>
+                    <select id="size-tee" class="item-options-select" title="Select Size">
+                        <option value="S">Small</option>
+                        <option value="M" selected>Medium</option>
+                        <option value="L">Large</option>
+                        <option value="XL">X-Large</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                    <button class="add-to-cart-btn" onclick="registerItemWithOption('Logo Tee', 25.00, 'size-tee')">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: FOND Hoodie]</div>
+                <div class="menu-image-placeholder">📷 [Image: FOND Apron]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Heavyweight Braise Hoodie</span><span>$48.00</span></div>
-                    <div class="menu-body">Thick 450gsm cross-grain fleece built for cold morning prep runs and late-night breakdowns. Features a clean embroidered cast-iron emblem on the left chest and oversized typography down the right sleeve.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Heavyweight Braise Hoodie', 48.00)">Add To Bag</button>
+                    <div class="menu-hdr"><span>Braise Apron</span><span>$35.00</span></div>
+                    <div class="menu-body">Heavy-duty utility canvas cooking apron built for serious line work, flat-top prep, or backyard smoking. Engineered with cross-back straps, brass hardware accents, and dual utility pockets. One size fits most.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Braise Apron', 35.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: FOND Hat]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Flat-Top Snapback</span><span>$22.00</span></div>
-                    <div class="menu-body">Classic, high-profile mesh trucker hat featuring the embroidered FOND cast-iron emblem patch. Features an adjustable snap back to fit just about any head.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Flat-Top Snapback', 22.00)">Add To Bag</button>
+                    <div class="menu-hdr"><span>Snapback Cap</span><span>$22.00</span></div>
+                    <div class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Snapback Cap', 22.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: FOND Sticker]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Cast Iron Vinyl Sticker</span><span>$4.00</span></div>
-                    <div class="menu-body">Thick, weatherproof, scratch-resistant vinyl. Slap it on your water bottle, cooler, or laptop to let everyone know you respect the slow cook.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Cast Iron Sticker', 4.00)">Add To Bag</button>
+                    <div class="menu-hdr"><span>Logo Sticker</span><span>$4.00</span></div>
+                    <div class="menu-body">Thick, weatherproof, scratch-resistant die-cut vinyl. Slap it on your water bottle, cooler shell, or laptop case to show everyone you respect the foundation of slow cooking. Built to last.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Logo Sticker', 4.00)">Add To Bag</button>
                 </div>
             </div>
         </div>
@@ -371,7 +375,6 @@
                 <input type="number" placeholder="Estimated Guest Count" required min="1" style="flex: 1;">
             </div>
             
-            <!-- Cascading Dropdown Layout Implementation -->
             <div style="display: flex; gap: 15px;">
                 <select id="catering-state" required style="flex: 1;" onchange="updateCateringCities()" title="Select State">
                     <option value="" disabled selected>Select State</option>
@@ -408,7 +411,7 @@
         </div>
     </div>
 
-    <!-- FLOATING CART BADGE (Text updated to "Pre-Order") -->
+    <!-- FLOATING CART BADGE -->
     <div id="floating-cart-badge" onclick="toggleCartDrawer()">
         🥖 <span>PRE-ORDER</span> (<span id="badge-count-value">0</span>)
     </div>
@@ -469,9 +472,18 @@
             document.getElementById('cart-drawer').classList.toggle('open');
         }
 
-        // Cart Actions
+        // Standard Add To Order Function
         function registerItem(itemName, itemPrice) {
             shoppingCart.push({ name: itemName, price: itemPrice });
+            runningTotal += itemPrice;
+            updateCartDisplay();
+        }
+
+        // Add To Order Function explicitly recognizing sizing selection attributes
+        function registerItemWithOption(baseName, itemPrice, selectId) {
+            const variantOption = document.getElementById(selectId).value;
+            const completeNameString = `${baseName} (${variantOption})`;
+            shoppingCart.push({ name: completeNameString, price: itemPrice });
             runningTotal += itemPrice;
             updateCartDisplay();
         }
