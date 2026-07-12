@@ -176,7 +176,7 @@
         .map-placeholder { height: 350px; background: rgba(0,0,0,0.2); border: var(--border-style); margin-bottom: 30px; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.5rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px; }
 
         /* Integrated Shopping Cart Drawer */
-        #cart-drawer { position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: #111; color: #fff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); z-index: 2000; padding: 25px; box-sizing: border-box; display: flex; flex-direction: column; }
+        #cart-drawer { position: fixed; top: 0; right: -400px; width: 100%; max-width: 350px; height: 100%; background: #111; color: #fff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); z-index: 2000; padding: 25px; box-sizing: border-box; display: flex; flex-direction: column; }
         #cart-drawer.open { right: 0; }
         .cart-header { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 15px; }
         .close-cart { cursor: pointer; color: var(--accent-secondary); font-size: 1.2rem; }
@@ -186,13 +186,64 @@
         
         /* Functional Form Framework */
         form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 30px auto; }
-        input, textarea, select { padding: 12px; background: var(--card-bg); border: var(--border-style); color: var(--text-color); font-family: inherit; font-size: 1rem; }
+        input, textarea, select { padding: 12px; background: var(--card-bg); border: var(--border-style); color: var(--text-color); font-family: inherit; font-size: 1rem; width: 100%; box-sizing: border-box; }
         input[type="date"] { color: var(--text-color); }
         option { background: #111; color: #fff; }
         ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
         
         /* Floating Tracker Badge */
         #floating-cart-badge { position: fixed; bottom: 20px; right: 20px; background: var(--accent-secondary); color: #000; padding: 15px 20px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1500; display: flex; gap: 10px; }
+
+        /* ==========================================
+           MOBILE RESPONSIVENESS ENGINE
+           ========================================== */
+        @media screen and (max-width: 680px) {
+            #theme-selector-panel {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                padding: 12px;
+            }
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 10px;
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            nav a {
+                margin-left: 0;
+                padding: 5px 8px;
+                font-size: 0.8rem;
+            }
+            .hero-emblem-placeholder {
+                height: 180px;
+                font-size: 1.1rem;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            form div {
+                flex-direction: column;
+                gap: 15px;
+            }
+            #floating-cart-badge {
+                width: calc(100% - 40px);
+                left: 20px;
+                text-align: center;
+                justify-content: center;
+                border-radius: 8px;
+                box-sizing: border-box;
+            }
+            body {
+                padding-bottom: 90px;
+            }
+        }
     </style>
 </head>
 <body data-theme="default">
@@ -200,8 +251,10 @@
     <!-- THEME LIVE TEST CONTROL DECK -->
     <div id="theme-selector-panel">
         <span>⚙️ STYLE SWITCHER:</span>
-        <button style="background: #222; color: #dca04b;" onclick="swapTheme('default')">Cast-Iron Black</button>
-        <button style="background: #0d1b3a; color: #FF9100;" onclick="swapTheme('premium-navy')">Premium Navy</button>
+        <div style="display: flex; gap: 10px;">
+            <button style="background: #222; color: #dca04b;" onclick="swapTheme('default')">Cast-Iron Black</button>
+            <button style="background: #0d1b3a; color: #FF9100;" onclick="swapTheme('premium-navy')">Premium Navy</button>
+        </div>
     </div>
 
     <!-- NAVIGATION ENGINE -->
@@ -230,8 +283,8 @@
 
     <!-- VIEW 2: THE MENU -->
     <div id="menu-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">THE MENU</h1>
-        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px;">Slow-cooked proteins piled high into fresh, warm rolls. Built for speed, born from flavor.</p>
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">THE MENU</h1>
+        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Slow-cooked proteins piled high into fresh, warm rolls. Built for speed, born from flavor.</p>
         <div class="menu-grid">
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: Birria Beef Sub]</div>
@@ -286,8 +339,8 @@
 
     <!-- VIEW 3: MERCHANDISE STORE -->
     <div id="merch-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">FOND GEAR</h1>
-        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px;">Rep the foundation of flavor wherever you go.</p>
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">FOND GEAR</h1>
+        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Rep the foundation of flavor wherever you go.</p>
         <div class="menu-grid">
             <div class="menu-card">
                 <div id="merch-img-tee" class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>
@@ -333,8 +386,8 @@
 
     <!-- VIEW 4: TRUCK TRACKER -->
     <div id="schedule-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">TRUCK TRACKER</h1>
-        <p style="text-align: center; margin-bottom: 40px;">Where we're rolling this week across Southern NH and Eastern MA.</p>
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">TRUCK TRACKER</h1>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Where we're rolling this week across Southern NH and Eastern MA.</p>
         
         <div class="map-placeholder">
             🗺️ [Interactive Map Placeholder]
@@ -358,8 +411,8 @@
 
     <!-- VIEW 5: CATERING -->
     <div id="catering-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">BOOK THE TRUCK</h1>
-        <p style="text-align: center; margin-bottom: 40px;">Skip the boring catering. Bring our slow-cooked braises straight to your next event.</p>
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">BOOK THE TRUCK</h1>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Skip the boring catering. Bring our slow-cooked braises straight to your next event.</p>
         <form id="cateringForm" onsubmit="processFormSubmission(event)">
             <input type="text" placeholder="Your Name" required>
             <input type="email" placeholder="Email Address" required>
