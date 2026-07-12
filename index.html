@@ -120,8 +120,8 @@
             height: auto;
             display: none;
             margin-bottom: 40px;
-            /* Shifting right to optically balance the center due to the protruding skillet handle */
-            transform: translateX(35px); 
+            /* Shifting LEFT to counter balance the handle that sticks out on the right */
+            transform: translateX(-40px); 
         }
 
         /* Logic to flip visibility based on theme selection */
@@ -342,7 +342,7 @@
             </div>
             
             <input type="text" placeholder="Event City & State (e.g., Manchester, NH)" required>
-            <textarea rows="4" placeholder="Tell us a bit about your event (Vibe, custom requests, etc.)..." required></textarea>
+            <textarea rows="4" placeholder="Tell us a bit about your event (Vibe, custom requests, etc.)...." required></textarea>
             
             <button type="submit" class="action-button">Send Booking Request</button>
         </form>
@@ -407,6 +407,7 @@
             updateCartDisplay();
         }
 
+        // Render Routine
         function updateCartDisplay() {
             const container = document.getElementById('cart-items-container');
             const badgeCount = document.getElementById('badge-count-value');
