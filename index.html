@@ -79,7 +79,13 @@
             align-items: center;
         }
         
-        /* Placeholder Container for Header Logo */
+        /* Hybrid Layout Styles for Image and Placeholder Switches */
+        .logo-image {
+            height: 45px;
+            width: auto;
+            cursor: pointer;
+            display: block;
+        }
         .header-logo-placeholder {
             font-family: var(--font-heading);
             font-size: 1rem;
@@ -87,7 +93,40 @@
             cursor: pointer;
             border: 1px dashed rgba(255,255,255,0.3);
             padding: 5px 10px;
+            display: none;
         }
+
+        /* Hero Text Stack Layout */
+        .hero-layout { text-align: center; padding: 40px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
+        
+        .hero-emblem-image {
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+            display: block; 
+            margin-bottom: 40px;
+        }
+        .hero-emblem-placeholder {
+            max-width: 450px;
+            width: 100%;
+            height: 250px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            display: none; 
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Dynamic Selector Switches mapped via Body attributes */
+        [data-theme="premium-navy"] .logo-image { display: none; }
+        [data-theme="premium-navy"] .header-logo-placeholder { display: block; }
+        [data-theme="premium-navy"] .hero-emblem-image { display: none; }
+        [data-theme="premium-navy"] .hero-emblem-placeholder { display: flex; }
 
         nav a {
             color: var(--text-color);
@@ -105,26 +144,6 @@
         .view-content.active-view { display: block; animation: fadeIn 0.3s ease; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Hero Text Stack Layout */
-        .hero-layout { text-align: center; padding: 40px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
-        
-        /* Placeholder Container for Main Hero Logo */
-        .hero-emblem-placeholder {
-            max-width: 450px;
-            width: 100%;
-            height: 250px;
-            border: 2px dashed rgba(255,255,255,0.2);
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 40px;
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            color: var(--accent-primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
         
         .action-button {
             background-color: var(--accent-secondary);
@@ -188,7 +207,8 @@
     <!-- NAVIGATION ENGINE -->
     <header>
         <div class="logo-container" onclick="navigateToView('home-view')">
-            <div id="header-logo-placeholder" class="header-logo-placeholder">📷 [Image: Cast Iron Logo]</div>
+            <img id="header-logo-img" class="logo-image" src="cast-iron-logo.png?v=2" alt="FOND Emblem Logo">
+            <div id="header-logo-placeholder" class="header-logo-placeholder">📷 [Image: Carving Fork Logo]</div>
         </div>
         <nav>
             <a onclick="navigateToView('home-view')">Home</a>
@@ -202,7 +222,8 @@
     <!-- VIEW 1: HOME PANEL -->
     <div id="home-view" class="view-content active-view">
         <div class="hero-layout">
-            <div id="hero-logo-placeholder" class="hero-emblem-placeholder">📷 [Image: Cast Iron Logo]</div>
+            <img id="hero-emblem-img" class="hero-emblem-image" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Cast Iron Emblem">
+            <div id="hero-logo-placeholder" class="hero-emblem-placeholder">📷 [Image: Carving Fork Logo]</div>
             <button class="action-button" onclick="navigateToView('menu-view')">View Menu</button>
         </div>
     </div>
@@ -380,13 +401,13 @@
                 <span>TOTAL:</span>
                 <span id="cart-cost-display">$0.00</span>
             </div>
-            <button class="action-button" style="width: 100%; font-size: 1.2rem; letter-spacing: 0.5px;" onclick="executeSimulatedCheckout()">Pre-Order Pickup</button>
+            <button class="action-button" style="width: 100%; font-size: 1.2rem; letter-spacing: 0.5px;" onclick="executeSimulatedCheckout()">Order Ahead Pickup</button>
         </div>
     </div>
 
     <!-- FLOATING CART BADGE -->
     <div id="floating-cart-badge" onclick="toggleCartDrawer()">
-        🥖 <span>PRE-ORDER</span> (<span id="badge-count-value">0</span>)
+        🥖 <span>ORDER AHEAD</span> (<span id="badge-count-value">0</span>)
     </div>
 
     <!-- JAVASCRIPT APPLICATION CORE -->
@@ -413,10 +434,6 @@
         function swapTheme(themeName) {
             const bodyElement = document.body;
             
-            // Dynamic Logo Text Placeholders
-            const headerLogoPlaceholder = document.getElementById('header-logo-placeholder');
-            const heroLogoPlaceholder = document.getElementById('hero-logo-placeholder');
-            
             // Merch DOM Elements to mutate text dynamically between themes
             const teeTitle = document.getElementById('merch-title-tee');
             const teeBody = document.getElementById('merch-body-tee');
@@ -433,10 +450,6 @@
 
             if (themeName === 'default') {
                 bodyElement.removeAttribute('data-theme');
-                
-                // Swap Text Labels to Cast Iron variant
-                headerLogoPlaceholder.innerText = "📷 [Image: Cast Iron Logo]";
-                heroLogoPlaceholder.innerText = "📷 [Image: Cast Iron Logo]";
                 
                 // Revert text definitions to Skillet variant
                 teeTitle.innerText = "Skillet Logo Tee";
@@ -455,10 +468,6 @@
                 bodyElement.setAttribute('data-theme', themeName);
                 
                 if (themeName === 'premium-navy') {
-                    // Swap Text Labels to Carving Fork variant
-                    headerLogoPlaceholder.innerText = "📷 [Image: Carving Fork Logo]";
-                    heroLogoPlaceholder.innerText = "📷 [Image: Carving Fork Logo]";
-                    
                     // Mutate text definitions to Carving Fork variant
                     teeTitle.innerText = "Carving Fork Logo Tee";
                     teeBody.innerText = "Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom carving fork emblem bold and centered across the chest.";
@@ -546,7 +555,7 @@
                 alert("Your bag is empty! Add some subs or gear first.");
                 return;
             }
-            alert(`Pre-Order captured!\nTotal: $${runningTotal.toFixed(2)}\nWe're firing up the flat-top. Your order will be ready for lightning-fast window pickup in 90 seconds!`);
+            alert(`Order Ahead captured!\nTotal: $${runningTotal.toFixed(2)}\nWe're firing up the flat-top. Your order will be ready for lightning-fast window pickup in 90 seconds!`);
             shoppingCart = [];
             runningTotal = 0;
             updateCartDisplay();
