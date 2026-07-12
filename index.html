@@ -84,18 +84,18 @@
             color: var(--accent-primary);
             text-transform: uppercase;
             cursor: pointer;
-            display: none; /* Hidden by default in Cast-Iron Black */
+            display: none; 
         }
         .logo-image {
             height: 45px;
             width: auto;
-            display: block; /* Shown by default in Cast-Iron Black */
+            display: block; 
             cursor: pointer;
         }
 
-        /* Adjustments when Premium Navy is selected */
-        [data-theme="premium-navy"] .logo-text { display: block; }
-        [data-theme="premium-navy"] .logo-image { display: none; }
+        /* Adjustments when Premium Navy is selected (keep emblem visible but source swapped via JS) */
+        [data-theme="premium-navy"] .logo-text { display: none; }
+        [data-theme="premium-navy"] .logo-image { display: block; }
 
         nav a {
             color: var(--text-color);
@@ -125,18 +125,13 @@
             max-width: 450px;
             width: 100%;
             height: auto;
-            display: block; /* Shown by default in Cast-Iron Black */
+            display: block; 
             margin-bottom: 40px;
             transform: none; 
         }
         .hero-text-stack {
-            display: none; /* Hidden by default in Cast-Iron Black */
+            display: none; 
         }
-
-        /* Adjustments when Premium Navy is selected */
-        [data-theme="premium-navy"] .hero-text-stack { display: block; }
-        [data-theme="premium-navy"] .hero-emblem { display: none; }
-        [data-theme="premium-navy"] .hero-layout { padding: 100px 20px; }
         
         .action-button {
             background-color: var(--accent-secondary);
@@ -201,7 +196,7 @@
     <header>
         <div class="logo-container" onclick="navigateToView('home-view')">
             <span class="logo-text">FOND</span>
-            <img class="logo-image" src="cast-iron-logo.png?v=2" alt="FOND Emblem Logo">
+            <img id="header-logo-img" class="logo-image" src="cast-iron-logo.png?v=2" alt="FOND Emblem Logo">
         </div>
         <nav>
             <a onclick="navigateToView('home-view')">Home</a>
@@ -220,7 +215,7 @@
                 <h2>Braised Meat Subs</h2>
                 <h3>Slow Cooked & Intensely flavorful</h3>
             </div>
-            <img class="hero-emblem" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Cast Iron Emblem">
+            <img id="hero-emblem-img" class="hero-emblem" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Emblem Logo">
             <button class="action-button" onclick="navigateToView('menu-view')">View Menu</button>
         </div>
     </div>
@@ -281,16 +276,16 @@
         </div>
     </div>
 
-    <!-- VIEW 3: MERCHANDISE STORE -->
+    <!-- VIEW 3: MERCHANDISE STORE (Dynamic Labels Applied via JS Hooking) -->
     <div id="merch-view" class="view-content">
         <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">FOND GEAR</h1>
         <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px;">Rep the foundation of flavor wherever you go.</p>
         <div class="menu-grid">
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>
+                <div id="merch-img-tee" class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Skillet Logo Tee</span><span>$25.00</span></div>
-                    <div class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.</div>
+                    <div class="menu-hdr"><span id="merch-title-tee">Skillet Logo Tee</span><span>$25.00</span></div>
+                    <div id="merch-body-tee" class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.</div>
                     <select id="size-tee" class="item-options-select" title="Select Size">
                         <option value="S">Small</option>
                         <option value="M" selected>Medium</option>
@@ -298,30 +293,30 @@
                         <option value="XL">X-Large</option>
                         <option value="XXL">XXL</option>
                     </select>
-                    <button class="add-to-cart-btn" onclick="registerItemWithOption('Skillet Logo Tee', 25.00, 'size-tee')">Add To Bag</button>
+                    <button id="merch-btn-tee" class="add-to-cart-btn" onclick="registerItemWithOption(document.getElementById('merch-title-tee').innerText, 25.00, 'size-tee')">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Apron]</div>
+                <div id="merch-img-apron" class="menu-image-placeholder">📷 [Image: Skillet Logo Apron]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Skillet Logo Apron</span><span>$35.00</span></div>
+                    <div class="menu-hdr"><span id="merch-title-apron">Skillet Logo Apron</span><span>$35.00</span></div>
                     <div class="menu-body">Heavy-duty utility canvas cooking apron built for serious line work, flat-top prep, or backyard smoking. Engineered with cross-back straps, brass hardware accents, and dual utility pockets. One size fits most.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Skillet Logo Apron', 35.00)">Add To Bag</button>
+                    <button id="merch-btn-apron" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-apron').innerText, 35.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Trucker Hat]</div>
+                <div id="merch-img-hat" class="menu-image-placeholder">📷 [Image: Skillet Logo Trucker Hat]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Skillet Logo Trucker Hat</span><span>$22.00</span></div>
-                    <div class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Skillet Logo Trucker Hat', 22.00)">Add To Bag</button>
+                    <div class="menu-hdr"><span id="merch-title-hat">Skillet Logo Trucker Hat</span><span>$22.00</span></div>
+                    <div id="merch-body-hat" class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.</div>
+                    <button id="merch-btn-hat" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-hat').innerText, 22.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: Fond Vinyl Sticker Pack]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Fond Vinyl Sticker Pack</span><span>$4.00</span></div>
-                    <div class="menu-body">Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.</div>
+                    <div id="merch-body-stickers" class="menu-body">Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.</div>
                     <button class="add-to-cart-btn" onclick="registerItem('Fond Vinyl Sticker Pack', 4.00)">Add To Bag</button>
                 </div>
             </div>
@@ -427,13 +422,68 @@
             window.scrollTo(0,0);
         }
 
-        // Theme Switcher Engine
+        // Dynamic Theme & Content Switcher Engine
         function swapTheme(themeName) {
             const bodyElement = document.body;
+            const headerLogo = document.getElementById('header-logo-img');
+            const heroEmblem = document.getElementById('hero-emblem-img');
+            
+            // Merch DOM Elements to mutate text dynamically between themes
+            const teeTitle = document.getElementById('merch-title-tee');
+            const teeBody = document.getElementById('merch-body-tee');
+            const teeImg = document.getElementById('merch-img-tee');
+            
+            const apronTitle = document.getElementById('merch-title-apron');
+            const apronImg = document.getElementById('merch-img-apron');
+            
+            const hatTitle = document.getElementById('merch-title-hat');
+            const hatBody = document.getElementById('merch-body-hat');
+            const hatImg = document.getElementById('merch-img-hat');
+            
+            const stickersBody = document.getElementById('merch-body-stickers');
+
             if (themeName === 'default') {
                 bodyElement.removeAttribute('data-theme');
+                
+                // Swap images to Skillet
+                headerLogo.src = "cast-iron-logo.png?v=2";
+                heroEmblem.src = "cast-iron-logo.png?v=2";
+                
+                // Revert text definitions to Skillet variant
+                teeTitle.innerText = "Skillet Logo Tee";
+                teeBody.innerText = "Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.";
+                teeImg.innerText = "📷 [Image: Skillet Logo Tee]";
+                
+                apronTitle.innerText = "Skillet Logo Apron";
+                apronImg.innerText = "📷 [Image: Skillet Logo Apron]";
+                
+                hatTitle.innerText = "Skillet Logo Trucker Hat";
+                hatBody.innerText = "Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.";
+                hatImg.innerText = "📷 [Image: Skillet Logo Trucker Hat]";
+                
+                stickersBody.innerText = "Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.";
             } else {
                 bodyElement.setAttribute('data-theme', themeName);
+                
+                if (themeName === 'premium-navy') {
+                    // Swap images to Carving Fork
+                    headerLogo.src = "carving-fork-logo.png";
+                    heroEmblem.src = "carving-fork-logo.png";
+                    
+                    // Mutate text definitions to Carving Fork variant
+                    teeTitle.innerText = "Carving Fork Logo Tee";
+                    teeBody.innerText = "Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom carving fork emblem bold and centered across the chest.";
+                    teeImg.innerText = "📷 [Image: Carving Fork Logo Tee]";
+                    
+                    apronTitle.innerText = "Carving Fork Logo Apron";
+                    apronImg.innerText = "📷 [Image: Carving Fork Logo Apron]";
+                    
+                    hatTitle.innerText = "Carving Fork Trucker Hat";
+                    hatBody.innerText = "Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered carving fork emblem patch front and center. One size fits most.";
+                    hatImg.innerText = "📷 [Image: Carving Fork Trucker Hat]";
+                    
+                    stickersBody.innerText = "Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Carving Fork Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.";
+                }
             }
         }
 
