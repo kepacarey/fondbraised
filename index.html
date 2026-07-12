@@ -78,24 +78,16 @@
             display: flex;
             align-items: center;
         }
-        .logo-text {
+        
+        /* Placeholder Container for Header Logo */
+        .header-logo-placeholder {
             font-family: var(--font-heading);
-            font-size: 2rem;
+            font-size: 1rem;
             color: var(--accent-primary);
-            text-transform: uppercase;
             cursor: pointer;
-            display: none; 
+            border: 1px dashed rgba(255,255,255,0.3);
+            padding: 5px 10px;
         }
-        .logo-image {
-            height: 45px;
-            width: auto;
-            display: block; 
-            cursor: pointer;
-        }
-
-        /* Adjustments when Premium Navy is selected (keep emblem visible but source swapped via JS) */
-        [data-theme="premium-navy"] .logo-text { display: none; }
-        [data-theme="premium-navy"] .logo-image { display: block; }
 
         nav a {
             color: var(--text-color);
@@ -116,21 +108,22 @@
 
         /* Hero Text Stack Layout */
         .hero-layout { text-align: center; padding: 40px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
-        .hero-layout h1 { font-family: var(--font-heading); font-size: 7rem; color: var(--accent-primary); margin: 0; text-transform: uppercase; line-height: 1; letter-spacing: -2px; }
-        .hero-layout h2 { font-family: var(--font-heading); font-size: 3rem; color: var(--accent-secondary); margin: 15px 0 5px 0; font-weight: bold; text-transform: uppercase; line-height: 1.1; }
-        .hero-layout h3 { font-size: 1.5rem; font-style: italic; font-weight: normal; margin: 0 0 50px 0; opacity: 0.85; color: var(--text-color); }
         
-        /* Dynamic Emblem Element */
-        .hero-emblem {
+        /* Placeholder Container for Main Hero Logo */
+        .hero-emblem-placeholder {
             max-width: 450px;
             width: 100%;
-            height: auto;
-            display: block; 
+            height: 250px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            display: flex; 
+            align-items: center;
+            justify-content: center;
             margin-bottom: 40px;
-            transform: none; 
-        }
-        .hero-text-stack {
-            display: none; 
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .action-button {
@@ -195,8 +188,7 @@
     <!-- NAVIGATION ENGINE -->
     <header>
         <div class="logo-container" onclick="navigateToView('home-view')">
-            <span class="logo-text">FOND</span>
-            <img id="header-logo-img" class="logo-image" src="cast-iron-logo.png?v=2" alt="FOND Emblem Logo">
+            <div id="header-logo-placeholder" class="header-logo-placeholder">📷 [Image: Cast Iron Logo]</div>
         </div>
         <nav>
             <a onclick="navigateToView('home-view')">Home</a>
@@ -210,12 +202,7 @@
     <!-- VIEW 1: HOME PANEL -->
     <div id="home-view" class="view-content active-view">
         <div class="hero-layout">
-            <div class="hero-text-stack">
-                <h1>FOND</h1>
-                <h2>Braised Meat Subs</h2>
-                <h3>Slow Cooked & Intensely flavorful</h3>
-            </div>
-            <img id="hero-emblem-img" class="hero-emblem" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Emblem Logo">
+            <div id="hero-logo-placeholder" class="hero-emblem-placeholder">📷 [Image: Cast Iron Logo]</div>
             <button class="action-button" onclick="navigateToView('menu-view')">View Menu</button>
         </div>
     </div>
@@ -276,7 +263,7 @@
         </div>
     </div>
 
-    <!-- VIEW 3: MERCHANDISE STORE (Dynamic Labels Applied via JS Hooking) -->
+    <!-- VIEW 3: MERCHANDISE STORE -->
     <div id="merch-view" class="view-content">
         <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">FOND GEAR</h1>
         <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px;">Rep the foundation of flavor wherever you go.</p>
@@ -425,8 +412,10 @@
         // Dynamic Theme & Content Switcher Engine
         function swapTheme(themeName) {
             const bodyElement = document.body;
-            const headerLogo = document.getElementById('header-logo-img');
-            const heroEmblem = document.getElementById('hero-emblem-img');
+            
+            // Dynamic Logo Text Placeholders
+            const headerLogoPlaceholder = document.getElementById('header-logo-placeholder');
+            const heroLogoPlaceholder = document.getElementById('hero-logo-placeholder');
             
             // Merch DOM Elements to mutate text dynamically between themes
             const teeTitle = document.getElementById('merch-title-tee');
@@ -445,9 +434,9 @@
             if (themeName === 'default') {
                 bodyElement.removeAttribute('data-theme');
                 
-                // Swap images to Skillet
-                headerLogo.src = "cast-iron-logo.png?v=2";
-                heroEmblem.src = "cast-iron-logo.png?v=2";
+                // Swap Text Labels to Cast Iron variant
+                headerLogoPlaceholder.innerText = "📷 [Image: Cast Iron Logo]";
+                heroLogoPlaceholder.innerText = "📷 [Image: Cast Iron Logo]";
                 
                 // Revert text definitions to Skillet variant
                 teeTitle.innerText = "Skillet Logo Tee";
@@ -466,9 +455,9 @@
                 bodyElement.setAttribute('data-theme', themeName);
                 
                 if (themeName === 'premium-navy') {
-                    // Swap images to Carving Fork
-                    headerLogo.src = "carving-fork-logo.png";
-                    heroEmblem.src = "carving-fork-logo.png";
+                    // Swap Text Labels to Carving Fork variant
+                    headerLogoPlaceholder.innerText = "📷 [Image: Carving Fork Logo]";
+                    heroLogoPlaceholder.innerText = "📷 [Image: Carving Fork Logo]";
                     
                     // Mutate text definitions to Carving Fork variant
                     teeTitle.innerText = "Carving Fork Logo Tee";
