@@ -84,12 +84,30 @@
             padding: 20px;
             border-bottom: 1px solid rgba(243,234,211,0.1);
         }
-        .logo {
+        
+        /* Brand Positioning / Switcher Elements */
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-text {
             font-family: var(--font-heading);
             font-size: 2rem;
             color: var(--accent-primary);
             text-transform: uppercase;
+            cursor: pointer;
         }
+        .logo-image {
+            height: 45px;
+            width: auto;
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Switch text to emblem in header only on Black & Gold theme */
+        [data-theme="black-gold"] .logo-text { display: none; }
+        [data-theme="black-gold"] .logo-image { display: block; }
+
         nav a {
             color: var(--text-color);
             text-decoration: none;
@@ -120,8 +138,7 @@
             height: auto;
             display: none;
             margin-bottom: 40px;
-            /* Shifting LEFT to counter balance the handle that sticks out on the right */
-            transform: translateX(-40px); 
+            transform: none; 
         }
 
         /* Logic to flip visibility based on theme selection */
@@ -187,7 +204,10 @@
 
     <!-- NAVIGATION ENGINE -->
     <header>
-        <div class="logo" id="app-logo">FOND</div>
+        <div class="logo-container" onclick="navigateToView('home-view')">
+            <span class="logo-text">FOND</span>
+            <img class="logo-image" src="cast-iron-logo.png" alt="FOND Emblem Logo">
+        </div>
         <nav>
             <a onclick="navigateToView('home-view')">Home</a>
             <a onclick="navigateToView('menu-view')">The Menu</a>
