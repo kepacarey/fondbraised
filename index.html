@@ -10,19 +10,7 @@
     <style>
         /* CSS THEME VARIABLES SCHEMA */
         :root {
-            /* Default: Earthy Green Theme Settings */
-            --bg-color: #2d3b32;
-            --text-color: #F3EAD3;
-            --accent-primary: #c85a32; /* Terracotta */
-            --accent-secondary: #e8a020; /* Gold */
-            --font-heading: 'Fraunces', serif;
-            --font-body: 'Outfit', sans-serif;
-            --card-bg: rgba(243, 234, 211, 0.05);
-            --border-style: 1px dashed rgba(243, 234, 211, 0.3);
-        }
-
-        /* Black & Gold Theme Overrides */
-        [data-theme="black-gold"] {
+            /* Default Theme: Cast-Iron Black */
             --bg-color: #000000;
             --text-color: #F3EAD3;
             --accent-primary: #dca04b; /* Gold */
@@ -96,17 +84,18 @@
             color: var(--accent-primary);
             text-transform: uppercase;
             cursor: pointer;
+            display: none; /* Hidden by default in Cast-Iron Black */
         }
         .logo-image {
             height: 45px;
             width: auto;
-            display: none;
+            display: block; /* Shown by default in Cast-Iron Black */
             cursor: pointer;
         }
 
-        /* Switch text to emblem in header only on Black & Gold theme */
-        [data-theme="black-gold"] .logo-text { display: none; }
-        [data-theme="black-gold"] .logo-image { display: block; }
+        /* Adjustments when Premium Navy is selected */
+        [data-theme="premium-navy"] .logo-text { display: block; }
+        [data-theme="premium-navy"] .logo-image { display: none; }
 
         nav a {
             color: var(--text-color);
@@ -126,7 +115,7 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Hero Text Stack Layout */
-        .hero-layout { text-align: center; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; }
+        .hero-layout { text-align: center; padding: 40px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
         .hero-layout h1 { font-family: var(--font-heading); font-size: 7rem; color: var(--accent-primary); margin: 0; text-transform: uppercase; line-height: 1; letter-spacing: -2px; }
         .hero-layout h2 { font-family: var(--font-heading); font-size: 3rem; color: var(--accent-secondary); margin: 15px 0 5px 0; font-weight: bold; text-transform: uppercase; line-height: 1.1; }
         .hero-layout h3 { font-size: 1.5rem; font-style: italic; font-weight: normal; margin: 0 0 50px 0; opacity: 0.85; color: var(--text-color); }
@@ -136,15 +125,18 @@
             max-width: 450px;
             width: 100%;
             height: auto;
-            display: none;
+            display: block; /* Shown by default in Cast-Iron Black */
             margin-bottom: 40px;
             transform: none; 
         }
+        .hero-text-stack {
+            display: none; /* Hidden by default in Cast-Iron Black */
+        }
 
-        /* Logic to flip visibility based on theme selection */
-        [data-theme="black-gold"] .hero-text-stack { display: none; }
-        [data-theme="black-gold"] .hero-emblem { display: block; }
-        [data-theme="black-gold"] .hero-layout { padding: 40px 20px 80px 20px; }
+        /* Adjustments when Premium Navy is selected */
+        [data-theme="premium-navy"] .hero-text-stack { display: block; }
+        [data-theme="premium-navy"] .hero-emblem { display: none; }
+        [data-theme="premium-navy"] .hero-layout { padding: 100px 20px; }
         
         .action-button {
             background-color: var(--accent-secondary);
@@ -201,8 +193,7 @@
     <!-- THEME LIVE TEST CONTROL DECK -->
     <div id="theme-selector-panel">
         <span>⚙️ STYLE SWITCHER:</span>
-        <button style="background: #2d3b32; color: #F3EAD3;" onclick="swapTheme('default')">Earthy Green</button>
-        <button style="background: #222; color: #dca04b;" onclick="swapTheme('black-gold')">Cast-Iron Black</button>
+        <button style="background: #222; color: #dca04b;" onclick="swapTheme('default')">Cast-Iron Black</button>
         <button style="background: #0d1b3a; color: #FF9100;" onclick="swapTheme('premium-navy')">Premium Navy</button>
     </div>
 
@@ -290,16 +281,16 @@
         </div>
     </div>
 
-    <!-- VIEW 3: MERCHANDISE STORE (Simplified Names, Updated Tee, Swapped Hoodie for Apron) -->
+    <!-- VIEW 3: MERCHANDISE STORE -->
     <div id="merch-view" class="view-content">
         <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin-bottom: 5px;">FOND GEAR</h1>
         <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px;">Rep the foundation of flavor wherever you go.</p>
         <div class="menu-grid">
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: FOND T-Shirt]</div>
+                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Logo Tee</span><span>$25.00</span></div>
-                    <div class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our updated custom cast-iron skillet emblem bold and centered across the chest.</div>
+                    <div class="menu-hdr"><span>Skillet Logo Tee</span><span>$25.00</span></div>
+                    <div class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.</div>
                     <select id="size-tee" class="item-options-select" title="Select Size">
                         <option value="S">Small</option>
                         <option value="M" selected>Medium</option>
@@ -307,31 +298,31 @@
                         <option value="XL">X-Large</option>
                         <option value="XXL">XXL</option>
                     </select>
-                    <button class="add-to-cart-btn" onclick="registerItemWithOption('Logo Tee', 25.00, 'size-tee')">Add To Bag</button>
+                    <button class="add-to-cart-btn" onclick="registerItemWithOption('Skillet Logo Tee', 25.00, 'size-tee')">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: FOND Apron]</div>
+                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Apron]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Braise Apron</span><span>$35.00</span></div>
+                    <div class="menu-hdr"><span>Skillet Logo Apron</span><span>$35.00</span></div>
                     <div class="menu-body">Heavy-duty utility canvas cooking apron built for serious line work, flat-top prep, or backyard smoking. Engineered with cross-back straps, brass hardware accents, and dual utility pockets. One size fits most.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Braise Apron', 35.00)">Add To Bag</button>
+                    <button class="add-to-cart-btn" onclick="registerItem('Skillet Logo Apron', 35.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: FOND Hat]</div>
+                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Trucker Hat]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Snapback Cap</span><span>$22.00</span></div>
+                    <div class="menu-hdr"><span>Skillet Logo Trucker Hat</span><span>$22.00</span></div>
                     <div class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Snapback Cap', 22.00)">Add To Bag</button>
+                    <button class="add-to-cart-btn" onclick="registerItem('Skillet Logo Trucker Hat', 22.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: FOND Sticker]</div>
+                <div class="menu-image-placeholder">📷 [Image: Fond Vinyl Sticker Pack]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Logo Sticker</span><span>$4.00</span></div>
-                    <div class="menu-body">Thick, weatherproof, scratch-resistant die-cut vinyl. Slap it on your water bottle, cooler shell, or laptop case to show everyone you respect the foundation of slow cooking. Built to last.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Logo Sticker', 4.00)">Add To Bag</button>
+                    <div class="menu-hdr"><span>Fond Vinyl Sticker Pack</span><span>$4.00</span></div>
+                    <div class="menu-body">Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Fond Vinyl Sticker Pack', 4.00)">Add To Bag</button>
                 </div>
             </div>
         </div>
