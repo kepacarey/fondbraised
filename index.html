@@ -194,30 +194,96 @@
         /* Floating Tracker Badge */
         #floating-cart-badge { position: fixed; bottom: 20px; right: 20px; background: var(--accent-secondary); color: #000; padding: 15px 20px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1500; display: flex; gap: 10px; }
 
-        /* Custom Styling for Pre-Launch Announcement Box */
-        .prelaunch-box {
+        /* ==========================================
+           DASHBOARD & BUILD-OUT PROGRESS COMPONENT
+           ========================================== */
+        .dashboard-container {
+            max-width: 700px;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .dashboard-box {
             background: var(--card-bg);
             border: var(--border-style);
-            padding: 35px 25px;
-            margin-top: 20px;
-            max-width: 600px;
-            width: 100%;
+            padding: 30px 25px;
             box-sizing: border-box;
             text-align: center;
         }
-        .prelaunch-box h2 {
+        .dashboard-box h2 {
             font-family: var(--font-heading);
             color: var(--accent-primary);
             text-transform: uppercase;
             margin-top: 0;
-            font-size: 2rem;
+            font-size: 1.8rem;
             letter-spacing: 1px;
         }
-        .prelaunch-box p {
-            font-size: 1rem;
+        .dashboard-box p {
+            font-size: 0.95rem;
             line-height: 1.6;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             opacity: 0.9;
+        }
+        
+        /* Renovation Progress Visuals */
+        .progress-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            height: 16px;
+            width: 100%;
+            margin: 25px 0 15px 0;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(243, 234, 211, 0.1);
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
+            height: 100%;
+            width: 65%; /* Current Buildout Percentage */
+            border-radius: 8px;
+            transition: width 0.5s ease-in-out;
+        }
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            font-weight: bold;
+            text-transform: uppercase;
+            gap: 5px;
+        }
+        .progress-steps span.completed {
+            color: var(--accent-primary);
+        }
+
+        /* Responsive Iframe/Link Wrapper */
+        .kickstarter-embed-placeholder {
+            border: 1px dashed rgba(243, 234, 211, 0.2);
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        /* Minimal Inline Form */
+        .inline-form {
+            display: flex;
+            gap: 10px;
+            max-width: 450px;
+            margin: 15px auto 0 auto;
+        }
+        .inline-form input {
+            flex: 1;
+            padding: 10px;
+        }
+        .inline-form button {
+            width: auto;
+            padding: 10px 20px;
         }
 
         /* ==========================================
@@ -269,6 +335,12 @@
             body {
                 padding-bottom: 90px;
             }
+            .inline-form {
+                flex-direction: column;
+            }
+            .progress-steps {
+                font-size: 0.65rem;
+            }
         }
     </style>
 </head>
@@ -298,19 +370,49 @@
         </nav>
     </header>
 
-    <!-- VIEW 1: HOME PANEL (PRE-LAUNCH EDITION) -->
+    <!-- VIEW 1: HOME PANEL (DASHBOARD EDITION) -->
     <div id="home-view" class="view-content active-view">
         <div class="hero-layout">
             <img id="hero-emblem-img" class="hero-emblem-image" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Cast Iron Emblem">
             <div id="hero-logo-placeholder" class="hero-emblem-placeholder">📷 [Image: Carving Fork Logo]</div>
             
-            <!-- Pre-Launch Announcement Box -->
-            <div class="prelaunch-box">
-                <h2>Back the Feast</h2>
-                <p>We're gearing up to take our signature slow-braised meat subs on the road. Sign up to support our upcoming Kickstarter campaign, follow our journey, and secure early-bird access to launch-day rewards!</p>
-                <div style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
-                    <button class="action-button" onclick="navigateToView('menu-view')">Preview the Menu</button>
+            <div class="dashboard-container">
+                
+                <!-- 1. Trailer Buildout Progress Tracker -->
+                <div class="dashboard-box">
+                    <h2>Trailer Renovation Progress</h2>[cite: 1]
+                    <p>Our mobile kitchen is currently under construction! We are gutting, welding, and retrofitting the trailer to handle our ultra-heavy cast iron braises safely at 75 mph. Follow our physical build milestones below:</p>[cite: 1]
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: 65%;"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <span class="completed">✓ Frame Prep</span>
+                        <span class="completed">✓ Gas & Plumbing</span>
+                        <span style="color: var(--accent-primary);">⚡ Hood & Equipment</span>
+                        <span>☐ Vinyl Wrap</span>[cite: 1]
+                    </div>
                 </div>
+
+                <!-- 2. Kickstarter Link & Pitch Embed -->
+                <div class="dashboard-box">
+                    <h2>Back the Launch on Kickstarter</h2>
+                    <p>Want exclusive access to VIP opening day tickets, menu testing slots, and first-edition merchandise? Help us clear our final equipment hurdles and get this rig legal by backing our campaign.</p>
+                    <div class="kickstarter-embed-placeholder">
+                        <p style="margin-bottom: 15px; font-style: italic; font-size: 0.9rem;">[Interactive Kickstarter Widget / Video Pitch Embed Goes Here]</p>
+                        <a href="https://www.kickstarter.com" target="_blank" class="action-button" style="padding: 10px 25px; font-size: 0.9rem;">Visit Kickstarter Page</a>
+                    </div>
+                </div>
+
+                <!-- 3. Launch Updates Email Signup -->
+                <div class="dashboard-box">
+                    <h2>Join the Inner Circle</h2>
+                    <p>Drop your email below to get notified when the trailer wrap goes on, when we secure our final permits, and exactly where we're parking for launch week.</p>[cite: 1]
+                    <form onsubmit="handleSubUpdates(event)" class="inline-form" style="margin: 0 auto;">
+                        <input type="email" id="subscriber-email" placeholder="Enter your email" required title="Email for Updates">
+                        <button type="submit" class="action-button">Keep Me Posted</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -321,15 +423,15 @@
         <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Slow-cooked proteins piled high into fresh, warm rolls. Built for speed, born from flavor.</p>
         <div class="menu-grid">
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Birria Beef Sub]</div>
+                <div class="menu-image-placeholder">📷 [Image: Birria Beef Sub][cite: 1]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Birria Beef</span><span>$14.50</span></div>
-                    <div class="menu-body">12-hour chuck roast slow-braised in a rich blend of guajillo and ancho chiles. Stuffed into a toasted bolillo roll with melted mozzarella, sweet white onions, and fresh cilantro. Served with a side of piping hot consommé for dipping. Messy, rich, and worth every napkin.</div>
+                    <div class="menu-body">12-hour chuck roast slow-braised in a rich blend of guajillo and ancho chiles[cite: 1]. Stuffed into a toasted bolillo roll with melted mozzarella, sweet white onions, and fresh cilantro[cite: 1]. Served with a side of piping hot consommé for dipping[cite: 1]. Messy, rich, and worth every napkin.</div>
                     <button class="add-to-cart-btn" onclick="registerItem('Birria Beef Sub', 14.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Chicken Tinga Sub]</div>
+                <div class="menu-image-placeholder">📷 [Image: Chicken Tinga Sub][cite: 1]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Chicken Tinga</span><span>$13.50</span></div>
                     <div class="menu-body">Tender shredded chicken thighs simmered low and slow in a smoky chipotle-adobo sauce with crushed tomatoes and garlic. Loaded with cool avocado crema, pickled jalapeños for a bright kick, and crumbled cotija cheese.</div>
@@ -337,7 +439,7 @@
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Italian Beef Sub]</div>
+                <div class="menu-image-placeholder">📷 [Image: Italian Beef Sub][cite: 1]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Italian Beef</span><span>$14.50</span></div>
                     <div class="menu-body">Our spin on the classic. Juicy chuck roast slow-cooked in a house Italian spice blend and sharp pepperoncini brine. Piled high on bread, completely dipped in hot savory jus, and loaded with spicy giardiniera and roasted sweet peppers.</div>
@@ -345,7 +447,7 @@
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Gochujang Pulled Pork]</div>
+                <div class="menu-image-placeholder">📷 [Image: Gochujang Pulled Pork][cite: 1]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Gochujang Pulled Pork</span><span>$13.50</span></div>
                     <div class="menu-body">Sweet meets heat. Tender pork shoulder glazed in a sticky, savory reduction of gochujang, soy, ginger, and brown sugar. Balanced beautifully with a crunchy sesame slaw, cool cucumber slices, and fresh scallions.</div>
@@ -353,7 +455,7 @@
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Bigos Braised Pork]</div>
+                <div class="menu-image-placeholder">📷 [Image: Bigos Braised Pork][cite: 1]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Bigos Braised Pork</span><span>$13.50</span></div>
                     <div class="menu-body">A heavy-hitting nod to traditional Polish comfort food. Pork shoulder slow-simmered with old-school sauerkraut, smoky kielbasa chunks, juniper berries, and marjoram. Finished with a swipe of grainy mustard and a sharp dill pickle wedge.</div>
@@ -361,7 +463,7 @@
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Lentil & Mushroom Sub]</div>
+                <div class="menu-image-placeholder">📷 [Image: Lentil & Mushroom Sub][cite: 1]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Gochujang Lentil (V)</span><span>$12.50</span></div>
                     <div class="menu-body">Who says a great braise needs meat? Plump, earthy lentils and sliced cremini mushrooms simmered down in our signature sweet-and-spicy gochujang reduction. Topped with our crunchy sesame slaw, cucumbers, and scallions.</div>
@@ -421,7 +523,7 @@
     <!-- VIEW 4: TRUCK TRACKER -->
     <div id="schedule-view" class="view-content">
         <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">TRUCK TRACKER</h1>
-        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Where we're rolling this week across Southern NH and Eastern MA.</p>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Where we're rolling this week across Southern NH and Eastern MA[cite: 1].</p>
         
         <div class="map-placeholder">
             🗺️ [Interactive Map Placeholder]
@@ -430,11 +532,11 @@
         <div style="display: flex; flex-direction: column; gap: 15px;">
             <div style="background: var(--card-bg); padding: 20px; border-left: 4px solid var(--accent-primary);">
                 <strong style="font-size: 1.2rem; color: var(--accent-primary);">Friday July 17</strong><br>
-                <em style="opacity: 0.9;">Food Truck Park</em> — 252 Willow St, Manchester, NH
+                <em style="opacity: 0.9;">Food Truck Park</em> — 252 Willow St, Manchester, NH[cite: 1]
             </div>
             <div style="background: var(--card-bg); padding: 20px; border-left: 4px solid var(--accent-primary);">
                 <strong style="font-size: 1.2rem; color: var(--accent-primary);">Friday July 24 - Sunday July 26</strong><br>
-                <em style="opacity: 0.9;">Lowell Folk Fest</em> — Boarding House Park, Lowell, MA
+                <em style="opacity: 0.9;">Lowell Folk Fest</em> — Boarding House Park, Lowell, MA[cite: 1]
             </div>
             <div style="background: var(--card-bg); padding: 20px; border-left: 4px solid var(--accent-primary);">
                 <strong style="font-size: 1.2rem; color: var(--accent-primary);">August 1</strong><br>
@@ -459,8 +561,8 @@
             <div style="display: flex; gap: 15px;">
                 <select id="catering-state" required style="flex: 1;" onchange="updateCateringCities()" title="Select State">
                     <option value="" disabled selected>Select State</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="MA">Massachusetts</option>
+                    <option value="NH">New Hampshire</option>[cite: 1]
+                    <option value="MA">Massachusetts</option>[cite: 1]
                 </select>
                 
                 <select id="catering-city" required style="flex: 1;" disabled title="Select City">
@@ -504,8 +606,8 @@
 
         // Regional City Directory Schema
         const cityMapData = {
-            "NH": ["Manchester", "Nashua", "Concord", "Portsmouth", "Salem", "Derry", "Bedford"],
-            "MA": ["Boston", "Lowell", "Lawrence", "Tewksbury", "Chelmsford", "Andover", "Haverhill"]
+            "NH": ["Manchester", "Nashua", "Concord", "Portsmouth", "Salem", "Derry", "Bedford"],[cite: 1]
+            "MA": ["Boston", "Lowell", "Lawrence", "Tewksbury", "Chelmsford", "Andover", "Haverhill"][cite: 1]
         };
 
         // Router Control
@@ -657,6 +759,14 @@
             document.getElementById('cateringForm').reset();
             document.getElementById('catering-city').disabled = true;
             navigateToView('home-view');
+        }
+
+        // Handle Launch Updates Form Submission
+        function handleSubUpdates(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('subscriber-email');
+            alert(`Awesome! We've added ${emailInput.value} to the list. We'll send updates straight to your inbox as soon as the build finishes and the permits clear!`);
+            emailInput.value = '';
         }
     </script>
 </body>
