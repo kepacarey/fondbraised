@@ -194,67 +194,35 @@
         /* Floating Tracker Badge */
         #floating-cart-badge { position: fixed; bottom: 20px; right: 20px; background: var(--accent-secondary); color: #000; padding: 15px 20px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1500; display: flex; gap: 10px; }
 
-        /* ==========================================
-           DASHBOARD & BUILD-OUT PROGRESS COMPONENT
-           ========================================== */
-        .dashboard-container {
-            max-width: 700px;
-            width: 100%;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        .dashboard-box {
+        /* Original Timeline Tracker Visuals */
+        .progress-box {
             background: var(--card-bg);
             border: var(--border-style);
-            padding: 30px 25px;
+            padding: 20px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 500px;
             box-sizing: border-box;
-            text-align: center;
+            text-align: left;
         }
-        .dashboard-box h2 {
+        .progress-box h3 {
             font-family: var(--font-heading);
             color: var(--accent-primary);
             text-transform: uppercase;
             margin-top: 0;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
+            font-size: 1.4rem;
         }
-        .dashboard-box p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            opacity: 0.9;
+        .progress-box ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0 0 0;
+            font-size: 0.9rem;
         }
-        
-        /* Renovation Progress Visuals */
-        .progress-track {
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            height: 16px;
-            width: 100%;
-            margin: 25px 0 15px 0;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid rgba(243, 234, 211, 0.1);
+        .progress-box li {
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
-        .progress-fill {
-            background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
-            height: 100%;
-            width: 38%; /* Accurate calculated width spanning through Phase 2 */
-            border-radius: 8px;
-            transition: width 0.5s ease-in-out;
-        }
-        .progress-steps {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            opacity: 0.8;
-            font-weight: bold;
-            text-transform: uppercase;
-            gap: 5px;
-        }
-        .progress-steps span.completed {
+        .progress-box li strong {
             color: var(--accent-primary);
         }
 
@@ -338,9 +306,6 @@
             .inline-form {
                 flex-direction: column;
             }
-            .progress-steps {
-                font-size: 0.65rem;
-            }
         }
     </style>
 </head>
@@ -370,107 +335,81 @@
         </nav>
     </header>
 
-    <!-- VIEW 1: HOME PANEL (DASHBOARD EDITION) -->
+    <!-- VIEW 1: HOME PANEL (ORIGINAL PIPELINE EDITION) -->
     <div id="home-view" class="view-content active-view">
         <div class="hero-layout">
             <img id="hero-emblem-img" class="hero-emblem-image" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Cast Iron Emblem">
             <div id="hero-logo-placeholder" class="hero-emblem-placeholder">📷 [Image: Carving Fork Logo]</div>
             
-            <div class="dashboard-container">
-                
-                <!-- 1. MERGED: Our Progress Pipeline Tracker with New Visuals -->
-                <div class="dashboard-box">
-                    <h2>Our Progress Pipeline</h2>[cite: 2]
-                    <p>We're building our vision step-by-step. See our real physical milestones as we move from our test kitchen recipes out onto the streets:</p>
-                    <div class="progress-track">
-                        <div class="progress-fill" style="width: 38%;"></div>
-                    </div>
-                    <div class="progress-steps">
-                        <span class="completed">✓ Recipe Dev</span>[cite: 2]
-                        <span style="color: var(--accent-primary);">⚡ Market Testing</span>[cite: 2]
-                        <span>☐ Buildout</span>[cite: 2]
-                        <span>☐ Operational</span>[cite: 2]
-                    </div>
-                    <p style="font-size: 0.85rem; font-style: italic; margin-top: 15px; opacity: 0.8;">
-                        Current State: Proving our concept with pop-ups and local farmer's market stalls while getting ready to launch our physical mobile setup![cite: 2]
-                    </p>
-                </div>
+            <p style="font-size: 1.25rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; color: var(--accent-primary);">The Food Truck is Coming.</p>
+            <p style="font-size: 0.95rem; max-width: 500px; line-height: 1.6; margin-bottom: 30px; opacity: 0.85;">We are currently locked in the kitchen finalizing recipes and wrapping our vehicle. Join the list below to get tracking updates, launch menus, and exclusive opening invitations.</p>
+            
+            <a onclick="navigateToView('menu-view')" class="action-button">Explore the Menu</a>
 
-                <!-- 2. Kickstarter Link & Pitch Embed -->
-                <div class="dashboard-box">
-                    <h2>Back the Launch on Kickstarter</h2>[cite: 1]
-                    <p>Want exclusive access to VIP opening day tickets, menu testing slots, and first-edition merchandise? Help us clear our final equipment hurdles and get this rig legal by backing our campaign.</p>[cite: 1]
-                    <div class="kickstarter-embed-placeholder">
-                        <p style="margin-bottom: 15px; font-style: italic; font-size: 0.9rem;">[Interactive Kickstarter Widget / Video Pitch Embed Goes Here]</p>[cite: 1]
-                        <a href="https://www.kickstarter.com" target="_blank" class="action-button" style="padding: 10px 25px; font-size: 0.9rem;">Visit Kickstarter Page</a>[cite: 1]
-                    </div>
-                </div>
-
-                <!-- 3. Launch Updates Email Signup -->
-                <div class="dashboard-box">
-                    <h2>Join the Inner Circle</h2>[cite: 1]
-                    <p>Drop your email below to get notified when the trailer wrap goes on, when we secure our final permits, and exactly where we're parking for launch week.</p>[cite: 1]
-                    <form onsubmit="handleSubUpdates(event)" class="inline-form" style="margin: 0 auto;">
-                        <input type="email" id="subscriber-email" placeholder="Enter your email" required title="Email for Updates">[cite: 1]
-                        <button type="submit" class="action-button">Keep Me Posted</button>[cite: 1]
-                    </form>
-                </div>
-
+            <!-- Reverted to original clean timeline tracker design -->
+            <div class="progress-box">
+                <h3>Our Progress Pipeline:</h3>
+                <ul>
+                    <li><strong>Phase 1: Concept & Development (Complete)</strong><br>Developing recipes, sourcing heavy cast-iron cooking vessels, branding layout.</li>
+                    <li><strong>Phase 2: Market Testing (In-Progress)</strong><br>Running small scale menu test runs, letting local folks try out our slow braised meats.</li>
+                    <li><strong>Phase 3: Building the Beast (Upcoming)</strong><br>Wrapping our truck/trailer setup and installing cooking lines.</li>
+                    <li><strong>Phase 4: Fully Operational (Goal)</strong><br>Rolling up to events near you with piping hot rolls piled high with slow-cooked meats.</li>
+                </ul>
             </div>
         </div>
     </div>
 
     <!-- VIEW 2: THE MENU -->
     <div id="menu-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">THE MENU</h1>[cite: 1]
-        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Slow-cooked proteins piled high into fresh, warm rolls. Built for speed, born from flavor.</p>[cite: 1]
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">THE MENU</h1>
+        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Slow-cooked proteins piled high into fresh, warm rolls. Built for speed, born from flavor.</p>
         <div class="menu-grid">
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Birria Beef Sub]</div>[cite: 1]
+                <div class="menu-image-placeholder">📷 [Image: Birria Beef Sub]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Birria Beef</span><span>$14.50</span></div>[cite: 1]
-                    <div class="menu-body">12-hour chuck roast slow-braised in a rich blend of guajillo and ancho chiles. Stuffed into a toasted bolillo roll with melted mozzarella, sweet white onions, and fresh cilantro. Served with a side of piping hot consommé for dipping. Messy, rich, and worth every napkin.</div>[cite: 1]
-                    <button class="add-to-cart-btn" onclick="registerItem('Birria Beef Sub', 14.50)">Add To Order</button>[cite: 1]
+                    <div class="menu-hdr"><span>Birria Beef</span><span>$14.50</span></div>
+                    <div class="menu-body">12-hour chuck roast slow-braised in a rich blend of guajillo and ancho chiles. Stuffed into a toasted bolillo roll with melted mozzarella, sweet white onions, and fresh cilantro. Served with a side of piping hot consommé for dipping. Messy, rich, and worth every napkin.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Birria Beef Sub', 14.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Chicken Tinga Sub]</div>[cite: 1]
+                <div class="menu-image-placeholder">📷 [Image: Chicken Tinga Sub]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Chicken Tinga</span><span>$13.50</span></div>[cite: 1]
-                    <div class="menu-body">Tender shredded chicken thighs simmered low and slow in a smoky chipotle-adobo sauce with crushed tomatoes and garlic. Loaded with cool avocado crema, pickled jalapeños for a bright kick, and crumbled cotija cheese.</div>[cite: 1]
-                    <button class="add-to-cart-btn" onclick="registerItem('Chicken Tinga Sub', 13.50)">Add To Order</button>[cite: 1]
+                    <div class="menu-hdr"><span>Chicken Tinga</span><span>$13.50</span></div>
+                    <div class="menu-body">Tender shredded chicken thighs simmered low and slow in a smoky chipotle-adobo sauce with crushed tomatoes and garlic. Loaded with cool avocado crema, pickled jalapeños for a bright kick, and crumbled cotija cheese.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Chicken Tinga Sub', 13.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Italian Beef Sub]</div>[cite: 1]
+                <div class="menu-image-placeholder">📷 [Image: Italian Beef Sub]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Italian Beef</span><span>$14.50</span></div>[cite: 1]
-                    <div class="menu-body">Our spin on the classic. Juicy chuck roast slow-cooked in a house Italian spice blend and sharp pepperoncini brine. Piled high on bread, completely dipped in hot savory jus, and loaded with spicy giardiniera and roasted sweet peppers.</div>[cite: 1]
-                    <button class="add-to-cart-btn" onclick="registerItem('Italian Beef Sub', 14.50)">Add To Order</button>[cite: 1]
+                    <div class="menu-hdr"><span>Italian Beef</span><span>$14.50</span></div>
+                    <div class="menu-body">Our spin on the classic. Juicy chuck roast slow-cooked in a house Italian spice blend and sharp pepperoncini brine. Piled high on bread, completely dipped in hot savory jus, and loaded with spicy giardiniera and roasted sweet peppers.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Italian Beef Sub', 14.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Gochujang Pulled Pork]</div>[cite: 1]
+                <div class="menu-image-placeholder">📷 [Image: Gochujang Pulled Pork]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Gochujang Pulled Pork</span><span>$13.50</span></div>[cite: 1]
-                    <div class="menu-body">Sweet meets heat. Tender pork shoulder glazed in a sticky, savory reduction of gochujang, soy, ginger, and brown sugar. Balanced beautifully with a crunchy sesame slaw, cool cucumber slices, and fresh scallions.</div>[cite: 1]
-                    <button class="add-to-cart-btn" onclick="registerItem('Gochujang Pulled Pork', 13.50)">Add To Order</button>[cite: 1]
+                    <div class="menu-hdr"><span>Gochujang Pulled Pork</span><span>$13.50</span></div>
+                    <div class="menu-body">Sweet meets heat. Tender pork shoulder glazed in a sticky, savory reduction of gochujang, soy, ginger, and brown sugar. Balanced beautifully with a crunchy sesame slaw, cool cucumber slices, and fresh scallions.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Gochujang Pulled Pork', 13.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Bigos Braised Pork]</div>[cite: 1]
+                <div class="menu-image-placeholder">📷 [Image: Bigos Braised Pork]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Bigos Braised Pork</span><span>$13.50</span></div>[cite: 1]
-                    <div class="menu-body">A heavy-hitting nod to traditional Polish comfort food. Pork shoulder slow-simmered with old-school sauerkraut, smoky kielbasa chunks, juniper berries, and marjoram. Finished with a swipe of grainy mustard and a sharp dill pickle wedge.</div>[cite: 1]
-                    <button class="add-to-cart-btn" onclick="registerItem('Bigos Braised Pork', 13.50)">Add To Order</button>[cite: 1]
+                    <div class="menu-hdr"><span>Bigos Braised Pork</span><span>$13.50</span></div>
+                    <div class="menu-body">A heavy-hitting nod to traditional Polish comfort food. Pork shoulder slow-simmered with old-school sauerkraut, smoky kielbasa chunks, juniper berries, and marjoram. Finished with a swipe of grainy mustard and a sharp dill pickle wedge.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Bigos Braised Pork', 13.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Lentil & Mushroom Sub]</div>[cite: 1]
+                <div class="menu-image-placeholder">📷 [Image: Lentil & Mushroom Sub]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Gochujang Lentil (V)</span><span>$12.50</span></div>[cite: 1]
-                    <div class="menu-body">Who says a great braise needs meat? Plump, earthy lentils and sliced cremini mushrooms simmered down in our signature sweet-and-spicy gochujang reduction. Topped with our crunchy sesame slaw, cucumbers, and scallions.</div>[cite: 1]
-                    <button class="add-to-cart-btn" onclick="registerItem('Gochujang Veggie Sub', 12.50)">Add To Order</button>[cite: 1]
+                    <div class="menu-hdr"><span>Gochujang Lentil (V)</span><span>$12.50</span></div>
+                    <div class="menu-body">Who says a great braise needs meat? Plump, earthy lentils and sliced cremini mushrooms simmered down in our signature sweet-and-spicy gochujang reduction. Topped with our crunchy sesame slaw, cucumbers, and scallions.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Gochujang Veggie Sub', 12.50)">Add To Order</button>
                 </div>
             </div>
         </div>
@@ -478,14 +417,14 @@
 
     <!-- VIEW 3: MERCHANDISE STORE -->
     <div id="merch-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">FOND GEAR</h1>[cite: 1]
-        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Rep the foundation of flavor wherever you go.</p>[cite: 1]
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">FOND GEAR</h1>
+        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Rep the foundation of flavor wherever you go.</p>
         <div class="menu-grid">
             <div class="menu-card">
-                <div id="merch-img-tee" class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>[cite: 1]
+                <div id="merch-img-tee" class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span id="merch-title-tee">Skillet Logo Tee</span><span>$25.00</span></div>[cite: 1]
-                    <div id="merch-body-tee" class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.</div>[cite: 1]
+                    <div class="menu-hdr"><span id="merch-title-tee">Skillet Logo Tee</span><span>$25.00</span></div>
+                    <div id="merch-body-tee" class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.</div>
                     <select id="size-tee" class="item-options-select" title="Select Size">
                         <option value="S">Small</option>
                         <option value="M" selected>Medium</option>
@@ -493,31 +432,31 @@
                         <option value="XL">X-Large</option>
                         <option value="XXL">XXL</option>
                     </select>
-                    <button id="merch-btn-tee" class="add-to-cart-btn" onclick="registerItemWithOption(document.getElementById('merch-title-tee').innerText, 25.00, 'size-tee')">Add To Bag</button>[cite: 1]
+                    <button id="merch-btn-tee" class="add-to-cart-btn" onclick="registerItemWithOption(document.getElementById('merch-title-tee').innerText, 25.00, 'size-tee')">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div id="merch-img-apron" class="menu-image-placeholder">📷 [Image: Skillet Logo Apron]</div>[cite: 1]
+                <div id="merch-img-apron" class="menu-image-placeholder">📷 [Image: Skillet Logo Apron]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span id="merch-title-apron">Skillet Logo Apron</span><span>$35.00</span></div>[cite: 1]
-                    <div class="menu-body">Heavy-duty utility canvas cooking apron built for serious line work, flat-top prep, or backyard smoking. Engineered with cross-back straps, brass hardware accents, and dual utility pockets. One size fits most.</div>[cite: 1]
-                    <button id="merch-btn-apron" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-apron').innerText, 35.00)">Add To Bag</button>[cite: 1]
+                    <div class="menu-hdr"><span id="merch-title-apron">Skillet Logo Apron</span><span>$35.00</span></div>
+                    <div class="menu-body">Heavy-duty utility canvas cooking apron built for serious line work, flat-top prep, or backyard smoking. Engineered with cross-back straps, brass hardware accents, and dual utility pockets. One size fits most.</div>
+                    <button id="merch-btn-apron" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-apron').innerText, 35.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div id="merch-img-hat" class="menu-image-placeholder">📷 [Image: Skillet Logo Trucker Hat]</div>[cite: 1]
+                <div id="merch-img-hat" class="menu-image-placeholder">📷 [Image: Skillet Logo Trucker Hat]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span id="merch-title-hat">Skillet Logo Trucker Hat</span><span>$22.00</span></div>[cite: 1]
-                    <div id="merch-body-hat" class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.</div>[cite: 1]
-                    <button id="merch-btn-hat" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-hat').innerText, 22.00)">Add To Bag</button>[cite: 1]
+                    <div class="menu-hdr"><span id="merch-title-hat">Skillet Logo Trucker Hat</span><span>$22.00</span></div>
+                    <div id="merch-body-hat" class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.</div>
+                    <button id="merch-btn-hat" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-hat').innerText, 22.00)">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Fond Vinyl Sticker Pack]</div>[cite: 1]
+                <div class="menu-image-placeholder">📷 [Image: Fond Vinyl Sticker Pack]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Fond Vinyl Sticker Pack</span><span>$4.00</span></div>[cite: 1]
-                    <div id="merch-body-stickers" class="menu-body">Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.</div>[cite: 1]
-                    <button class="add-to-cart-btn" onclick="registerItem('Fond Vinyl Sticker Pack', 4.00)">Add To Bag</button>[cite: 1]
+                    <div class="menu-hdr"><span>Fond Vinyl Sticker Pack</span><span>$4.00</span></div>
+                    <div id="merch-body-stickers" class="menu-body">Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Fond Vinyl Sticker Pack', 4.00)">Add To Bag</button>
                 </div>
             </div>
         </div>
@@ -525,8 +464,8 @@
 
     <!-- VIEW 4: TRUCK TRACKER -->
     <div id="schedule-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">TRUCK TRACKER</h1>[cite: 1]
-        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Where we're rolling this week across Southern NH and Eastern MA.</p>[cite: 1]
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">TRUCK TRACKER</h1>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Where we're rolling this week across Southern NH and Eastern MA.</p>
         
         <div class="map-placeholder">
             🗺️ [Interactive Map Placeholder]
@@ -543,15 +482,15 @@
             </div>
             <div style="background: var(--card-bg); padding: 20px; border-left: 4px solid var(--accent-primary);">
                 <strong style="font-size: 1.2rem; color: var(--accent-primary);">August 1</strong><br>
-                <em style="opacity: 0.9;">Private Event</em> — <a onclick="navigateToView('catering-view')" style="color: var(--accent-secondary); text-decoration: underline; cursor: pointer; font-weight: bold;">[Book your own event]</a>[cite: 1]
+                <em style="opacity: 0.9;">Private Event</em> — <a onclick="navigateToView('catering-view')" style="color: var(--accent-secondary); text-decoration: underline; cursor: pointer; font-weight: bold;">[Book your own event]</a>
             </div>
         </div>
     </div>
 
     <!-- VIEW 5: CATERING -->
     <div id="catering-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">BOOK THE TRUCK</h1>[cite: 1]
-        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Skip the boring catering. Bring our slow-cooked braises straight to your next event.</p>[cite: 1]
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">BOOK THE TRUCK</h1>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Skip the boring catering. Bring our slow-cooked braises straight to your next event.</p>
         <form id="cateringForm" onsubmit="processFormSubmission(event)">
             <input type="text" placeholder="Your Name" required>
             <input type="email" placeholder="Email Address" required>
@@ -564,8 +503,8 @@
             <div style="display: flex; gap: 15px;">
                 <select id="catering-state" required style="flex: 1;" onchange="updateCateringCities()" title="Select State">
                     <option value="" disabled selected>Select State</option>
-                    <option value="NH">New Hampshire</option>[cite: 1]
-                    <option value="MA">Massachusetts</option>[cite: 1]
+                    <option value="NH">New Hampshire</option>
+                    <option value="MA">Massachusetts</option>
                 </select>
                 
                 <select id="catering-city" required style="flex: 1;" disabled title="Select City">
@@ -582,8 +521,8 @@
     <!-- CART SIDE DRAWER -->
     <div id="cart-drawer">
         <div class="cart-header">
-            <h3 style="font-family: 'Oswald', sans-serif; margin: 0; font-size: 1.1rem; letter-spacing: 0.5px;">YOUR ORDER</h3>[cite: 1]
-            <span class="close-cart" onclick="toggleCartDrawer()">✕ CLOSE</span>[cite: 1]
+            <h3 style="font-family: 'Oswald', sans-serif; margin: 0; font-size: 1.1rem; letter-spacing: 0.5px;">YOUR ORDER</h3>
+            <span class="close-cart" onclick="toggleCartDrawer()">✕ CLOSE</span>
         </div>
         <div id="cart-items-container">
             <p style="text-align: center; opacity: 0.5; margin-top: 40px;">Your cart is empty.</p>
@@ -593,7 +532,7 @@
                 <span>TOTAL:</span>
                 <span id="cart-cost-display">$0.00</span>
             </div>
-            <button class="action-button" style="width: 100%; font-size: 1.2rem; letter-spacing: 0.5px;" onclick="executeSimulatedCheckout()">Order Ahead Pickup</button>[cite: 1]
+            <button class="action-button" style="width: 100%; font-size: 1.2rem; letter-spacing: 0.5px;" onclick="executeSimulatedCheckout()">Order Ahead Pickup</button>
         </div>
     </div>
 
@@ -609,8 +548,8 @@
 
         // Regional City Directory Schema
         const cityMapData = {
-            "NH": ["Manchester", "Nashua", "Concord", "Portsmouth", "Salem", "Derry", "Bedford"],[cite: 1]
-            "MA": ["Boston", "Lowell", "Lawrence", "Tewksbury", "Chelmsford", "Andover", "Haverhill"][cite: 1]
+            "NH": ["Manchester", "Nashua", "Concord", "Portsmouth", "Salem", "Derry", "Bedford"],
+            "MA": ["Boston", "Lowell", "Lawrence", "Tewksbury", "Chelmsford", "Andover", "Haverhill"]
         };
 
         // Router Control
@@ -762,14 +701,6 @@
             document.getElementById('cateringForm').reset();
             document.getElementById('catering-city').disabled = true;
             navigateToView('home-view');
-        }
-
-        // Handle Launch Updates Form Submission
-        function handleSubUpdates(event) {
-            event.preventDefault();
-            const emailInput = document.getElementById('subscriber-email');
-            alert(`Awesome! We've added ${emailInput.value} to the list. We'll send updates straight to your inbox as soon as the build finishes and the permits clear!`);
-            emailInput.value = '';
         }
     </script>
 </body>
