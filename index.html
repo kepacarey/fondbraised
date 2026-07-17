@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FOND - Braised Meat Subs (Coming Soon)</title>
+    <title>FOND - Braised Meat Subs</title>
     <!-- Google Fonts Framework -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght=600;700&family=Inter:wght=400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@700;900&family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600;800&family=Oswald:wght@600;700&family=Outfit:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <style>
         /* CSS THEME VARIABLES SCHEMA */
         :root {
+            /* Default Theme: Cast-Iron Black */
             --bg-color: #000000;
             --text-color: #F3EAD3;
             --accent-primary: #dca04b; /* Gold */
@@ -18,6 +19,18 @@
             --font-body: 'Courier New', Courier, monospace;
             --card-bg: #050505;
             --border-style: 1px solid #ae001d;
+        }
+
+        /* Premium Navy Theme Overrides */
+        [data-theme="premium-navy"] {
+            --bg-color: #0b1325;
+            --text-color: #f3ead3;
+            --accent-primary: #D32F2F; /* Crimson */
+            --accent-secondary: #FF9100; /* Orange */
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Inter', sans-serif;
+            --card-bg: #0d1b3a;
+            --border-style: 1px solid rgba(255, 145, 0, 0.2);
         }
 
         /* Base Architecture Settings */
@@ -30,6 +43,28 @@
             padding-bottom: 80px;
         }
 
+        /* Live Control Panel Feature */
+        #theme-selector-panel {
+            background: #111;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+            z-index: 1000;
+            position: relative;
+        }
+        #theme-selector-panel button {
+            padding: 5px 12px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+
         header {
             display: flex;
             justify-content: space-between;
@@ -38,34 +73,60 @@
             border-bottom: 1px solid rgba(243,234,211,0.1);
         }
         
+        /* Brand Positioning / Switcher Elements */
         .logo-container {
             display: flex;
             align-items: center;
         }
         
+        /* Hybrid Layout Styles for Image and Placeholder Switches */
         .logo-image {
             height: 45px;
             width: auto;
             cursor: pointer;
             display: block;
         }
+        .header-logo-placeholder {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: var(--accent-primary);
+            cursor: pointer;
+            border: 1px dashed rgba(255,255,255,0.3);
+            padding: 5px 10px;
+            display: none;
+        }
 
         /* Hero Text Stack Layout */
-        .hero-layout { 
-            text-align: center; 
-            padding: 60px 20px 40px 20px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-        }
+        .hero-layout { text-align: center; padding: 40px 20px 80px 20px; display: flex; flex-direction: column; align-items: center; }
         
         .hero-emblem-image {
-            max-width: 380px;
+            max-width: 450px;
             width: 100%;
             height: auto;
             display: block; 
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
+        .hero-emblem-placeholder {
+            max-width: 450px;
+            width: 100%;
+            height: 250px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            display: none; 
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Dynamic Selector Switches mapped via Body attributes */
+        [data-theme="premium-navy"] .logo-image { display: none; }
+        [data-theme="premium-navy"] .header-logo-placeholder { display: block; }
+        [data-theme="premium-navy"] .hero-emblem-image { display: none; }
+        [data-theme="premium-navy"] .hero-emblem-placeholder { display: flex; }
 
         nav a {
             color: var(--text-color);
@@ -95,84 +156,8 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            text-align: center;
         }
         .action-button:hover { filter: brightness(1.2); }
-
-        /* Custom Pre-Launch Layout Cards */
-        .prelaunch-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .prelaunch-card {
-            background: var(--card-bg);
-            border: var(--border-style);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .prelaunch-card h2 {
-            font-family: var(--font-heading);
-            color: var(--accent-primary);
-            margin-top: 0;
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Progress Pipeline Timeline */
-        .timeline {
-            margin: 40px 0;
-            padding: 0;
-            list-style: none;
-            position: relative;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: rgba(243,234,211,0.15);
-            left: 20px;
-        }
-        .timeline-item {
-            position: relative;
-            padding-left: 50px;
-            margin-bottom: 30px;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 11px;
-            top: 5px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--bg-color);
-            border: 2px solid rgba(243,234,211,0.3);
-        }
-        .timeline-item.completed::before {
-            background: var(--accent-primary);
-            border-color: var(--accent-primary);
-        }
-        .timeline-item.active::before {
-            background: var(--accent-secondary);
-            border-color: var(--accent-secondary);
-            box-shadow: 0 0 8px var(--accent-secondary);
-        }
-        .timeline-title {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            color: var(--text-color);
-        }
-        .timeline-item.active .timeline-title {
-            color: var(--accent-primary);
-        }
 
         /* Card Component with Image Support */
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
@@ -184,7 +169,11 @@
         .add-to-cart-btn { background: transparent; border: 1px solid var(--accent-secondary); color: var(--accent-secondary); padding: 8px; width: 100%; cursor: pointer; font-weight: bold; text-transform: uppercase; margin-top: 15px; }
         .add-to-cart-btn:hover { background: var(--accent-secondary); color: #000; }
 
+        /* Style tweaks specifically for item option selectors */
         .item-options-select { width: 100%; padding: 6px; margin: 10px 0 5px 0; background: rgba(0,0,0,0.2); border: 1px solid rgba(243,234,211,0.2); color: var(--text-color); font-size: 0.85rem; }
+
+        /* Truck Tracker Layout Enhancements */
+        .map-placeholder { height: 350px; background: rgba(0,0,0,0.2); border: var(--border-style); margin-bottom: 30px; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.5rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px; }
 
         /* Integrated Shopping Cart Drawer */
         #cart-drawer { position: fixed; top: 0; right: -400px; width: 100%; max-width: 350px; height: 100%; background: #111; color: #fff; box-shadow: -5px 0 15px rgba(0,0,0,0.5); transition: right 0.3s cubic-bezier(0.075, 0.82, 0.165, 1); z-index: 2000; padding: 25px; box-sizing: border-box; display: flex; flex-direction: column; }
@@ -196,17 +185,51 @@
         .cart-total-panel { border-top: 1px solid #333; padding-top: 20px; }
         
         /* Functional Form Framework */
-        form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 20px auto; }
+        form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 30px auto; }
         input, textarea, select { padding: 12px; background: var(--card-bg); border: var(--border-style); color: var(--text-color); font-family: inherit; font-size: 1rem; width: 100%; box-sizing: border-box; }
+        input[type="date"] { color: var(--text-color); }
         option { background: #111; color: #fff; }
+        ::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
         
         /* Floating Tracker Badge */
         #floating-cart-badge { position: fixed; bottom: 20px; right: 20px; background: var(--accent-secondary); color: #000; padding: 15px 20px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1500; display: flex; gap: 10px; }
 
+        /* Custom Styling for Pre-Launch Announcement Box */
+        .prelaunch-box {
+            background: var(--card-bg);
+            border: var(--border-style);
+            padding: 35px 25px;
+            margin-top: 20px;
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .prelaunch-box h2 {
+            font-family: var(--font-heading);
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            margin-top: 0;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+        .prelaunch-box p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
         /* ==========================================
            MOBILE RESPONSIVENESS ENGINE
            ========================================== */
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 680px) {
+            #theme-selector-panel {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                padding: 12px;
+            }
             header {
                 flex-direction: column;
                 gap: 15px;
@@ -223,13 +246,17 @@
                 padding: 5px 8px;
                 font-size: 0.8rem;
             }
-            .prelaunch-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .hero-emblem-placeholder {
+                height: 180px;
+                font-size: 1.1rem;
             }
             .menu-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            form div {
+                flex-direction: column;
+                gap: 15px;
             }
             #floating-cart-badge {
                 width: calc(100% - 40px);
@@ -245,153 +272,181 @@
         }
     </style>
 </head>
-<body>
+<body data-theme="default">
+
+    <!-- THEME LIVE TEST CONTROL DECK -->
+    <div id="theme-selector-panel">
+        <span>⚙️ STYLE SWITCHER:</span>
+        <div style="display: flex; gap: 10px;">
+            <button style="background: #222; color: #dca04b;" onclick="swapTheme('default')">Cast-Iron Black</button>
+            <button style="background: #0d1b3a; color: #FF9100;" onclick="swapTheme('premium-navy')">Premium Navy</button>
+        </div>
+    </div>
 
     <!-- NAVIGATION ENGINE -->
     <header>
         <div class="logo-container" onclick="navigateToView('home-view')">
-            <img class="logo-image" src="cast-iron-logo.png?v=2" alt="FOND Emblem Logo">
+            <img id="header-logo-img" class="logo-image" src="cast-iron-logo.png?v=2" alt="FOND Emblem Logo">
+            <div id="header-logo-placeholder" class="header-logo-placeholder">📷 [Image: Carving Fork Logo]</div>
         </div>
         <nav>
-            <a onclick="navigateToView('home-view')">Pre-Launch Info</a>
-            <a onclick="navigateToView('menu-view')">The Menu Preview</a>
-            <a onclick="navigateToView('catering-view')">Catering Inquiries</a>
-            <a onclick="navigateToView('merch-view')">Support Gear</a>
+            <a onclick="navigateToView('home-view')">Home</a>
+            <a onclick="navigateToView('menu-view')">The Menu</a>
+            <a onclick="navigateToView('schedule-view')">Truck Tracker</a>
+            <a onclick="navigateToView('catering-view')">Catering</a>
+            <a onclick="navigateToView('merch-view')">Merch</a>
         </nav>
     </header>
 
     <!-- VIEW 1: HOME PANEL (PRE-LAUNCH EDITION) -->
     <div id="home-view" class="view-content active-view">
         <div class="hero-layout">
-            <img class="hero-emblem-image" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs">
-            <h1 style="font-family: var(--font-heading); text-transform: uppercase; font-size: 3rem; margin: 10px 0 5px 0; color: var(--accent-primary);">FOND is Cooking.</h1>
-            <p style="max-width: 600px; line-height: 1.6; margin: 0 auto; font-size: 1rem;">
-                We simmer premium proteins low and slow until they are incredibly tender, then pile them high into fresh, warm rolls. No shortcuts. No compromise. Built on patience, born from flavor.
-            </p>
-        </div>
-
-        <hr style="border: 0; border-top: 1px solid rgba(243,234,211,0.1); margin: 40px 0;">
-
-        <!-- Pipeline Timeline -->
-        <h2 style="font-family: var(--font-heading); text-transform: uppercase; text-align: center; color: var(--accent-primary); font-size: 2rem;">Our Progress Pipeline</h2>
-        <ul class="timeline">
-            <li class="timeline-item completed">
-                <div class="timeline-title">Phase 1: Concept & Recipe Dev (Complete)</div>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin: 5px 0 0 0;">Perfecting our signature slow-braises, selecting regional bakers, and curating our launch menu lineup.</p>
-            </li>
-            <li class="timeline-item active">
-                <div class="timeline-title">Phase 2: Market Testing (In Progress)</div>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin: 5px 0 0 0;">Proving the concept on the ground. We are opening temporary farmer's market stalls and hosting limited pop-up events to get our food out to the community before we even have wheels.</p>
-            </li>
-            <li class="timeline-item">
-                <div class="timeline-title">Phase 3: Building the Beast</div>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin: 5px 0 0 0;">Using the funding generated from our Kickstarter campaign and structural market testing to purchase a physical truck and outfit it with high-end, professional kitchen gear.</p>
-            </li>
-            <li class="timeline-item">
-                <div class="timeline-title">Phase 4: Fully Operational</div>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin: 5px 0 0 0;">Spreading FOND to the community. Transitioning to a permanent weekly schedule, catering large events, and feeding hungry neighborhoods across the region.</p>
-            </li>
-        </ul>
-
-        <div class="prelaunch-grid">
-            <!-- Kickstarter Embed/Link Card -->
-            <div class="prelaunch-card">
-                <div>
-                    <h2>Fuel the FOND</h2>
-                    <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px;">
-                        To help us secure our mobile chassis and roll into town sooner, we are launching a crowdfunding campaign. Back our build to secure early access tasting events and limited-run founder merch.
-                    </p>
+            <img id="hero-emblem-img" class="hero-emblem-image" src="cast-iron-logo.png?v=2" alt="FOND Braised Meat Subs - Cast Iron Emblem">
+            <div id="hero-logo-placeholder" class="hero-emblem-placeholder">📷 [Image: Carving Fork Logo]</div>
+            
+            <!-- Pre-Launch Announcement Box -->
+            <div class="prelaunch-box">
+                <h2>Back the Feast</h2>
+                <p>We're gearing up to take our signature slow-braised meat subs on the road. Sign up to support our upcoming Kickstarter campaign, follow our journey, and secure early-bird access to launch-day rewards!</p>
+                <div style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
+                    <button class="action-button" onclick="navigateToView('menu-view')">Preview the Menu</button>
                 </div>
-                <!-- This can be swapped for a widget/iFrame code block from Kickstarter directly -->
-                <div style="border: 1px dashed var(--accent-primary); padding: 15px; text-align: center; margin-bottom: 20px; font-size: 0.85rem;">
-                    📟 [Kickstarter Widget Embed Placeholder]
-                </div>
-                <a href="https://kickstarter.com" target="_blank" class="action-button">Back Our Kickstarter</a>
-            </div>
-
-            <!-- News & Stall Updates Sign-up -->
-            <div class="prelaunch-card">
-                <div>
-                    <h2>Get Launch Alerts</h2>
-                    <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px;">
-                        Be the absolute first to know where we schedule our temporary pop-up tastings and which local farmer's markets or street stalls we lock in before the truck is operational.
-                    </p>
-                </div>
-                <form id="prelaunch-signup" onsubmit="handleSignup(event)" style="max-width: 100%; margin: 0;">
-                    <input type="text" placeholder="First Name" required style="margin-bottom: 10px;">
-                    <input type="email" placeholder="Email Address" required style="margin-bottom: 15px;">
-                    <button type="submit" class="action-button" style="width: 100%;">Join the Fond Family</button>
-                </form>
             </div>
         </div>
     </div>
 
-    <!-- VIEW 2: THE MENU PREVIEW -->
+    <!-- VIEW 2: THE MENU -->
     <div id="menu-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">THE MENU PREVIEW</h1>
-        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">What we're firing up once the keys are in the ignition.</p>
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">THE MENU</h1>
+        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Slow-cooked proteins piled high into fresh, warm rolls. Built for speed, born from flavor.</p>
         <div class="menu-grid">
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: Birria Beef Sub]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Birria Beef</span><span>$14.50</span></div>
-                    <div class="menu-body">12-hour chuck roast slow-braised in a rich blend of guajillo and ancho chiles. Stuffed into a toasted bolillo roll with melted mozzarella, sweet white onions, and fresh cilantro. Served with a side of piping hot consommé for dipping.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Birria Beef Sub', 14.50)">Mock Order</button>
+                    <div class="menu-body">12-hour chuck roast slow-braised in a rich blend of guajillo and ancho chiles. Stuffed into a toasted bolillo roll with melted mozzarella, sweet white onions, and fresh cilantro. Served with a side of piping hot consommé for dipping. Messy, rich, and worth every napkin.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Birria Beef Sub', 14.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: Chicken Tinga Sub]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Chicken Tinga</span><span>$13.50</span></div>
-                    <div class="menu-body">Tender shredded chicken thighs simmered low and slow in a smoky chipotle-adobo sauce with crushed tomatoes and garlic. Loaded with cool avocado crema, pickled jalapeños, and crumbled cotija cheese.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Chicken Tinga Sub', 13.50)">Mock Order</button>
+                    <div class="menu-body">Tender shredded chicken thighs simmered low and slow in a smoky chipotle-adobo sauce with crushed tomatoes and garlic. Loaded with cool avocado crema, pickled jalapeños for a bright kick, and crumbled cotija cheese.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Chicken Tinga Sub', 13.50)">Add To Order</button>
                 </div>
             </div>
             <div class="menu-card">
                 <div class="menu-image-placeholder">📷 [Image: Italian Beef Sub]</div>
                 <div class="menu-details">
                     <div class="menu-hdr"><span>Italian Beef</span><span>$14.50</span></div>
-                    <div class="menu-body">Juicy chuck roast slow-cooked in a house Italian spice blend and sharp pepperoncini brine. Piled high on bread, completely dipped in hot savory jus, and loaded with spicy giardiniera and roasted sweet peppers.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Italian Beef Sub', 14.50)">Mock Order</button>
+                    <div class="menu-body">Our spin on the classic. Juicy chuck roast slow-cooked in a house Italian spice blend and sharp pepperoncini brine. Piled high on bread, completely dipped in hot savory jus, and loaded with spicy giardiniera and roasted sweet peppers.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Italian Beef Sub', 14.50)">Add To Order</button>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image-placeholder">📷 [Image: Gochujang Pulled Pork]</div>
+                <div class="menu-details">
+                    <div class="menu-hdr"><span>Gochujang Pulled Pork</span><span>$13.50</span></div>
+                    <div class="menu-body">Sweet meets heat. Tender pork shoulder glazed in a sticky, savory reduction of gochujang, soy, ginger, and brown sugar. Balanced beautifully with a crunchy sesame slaw, cool cucumber slices, and fresh scallions.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Gochujang Pulled Pork', 13.50)">Add To Order</button>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image-placeholder">📷 [Image: Bigos Braised Pork]</div>
+                <div class="menu-details">
+                    <div class="menu-hdr"><span>Bigos Braised Pork</span><span>$13.50</span></div>
+                    <div class="menu-body">A heavy-hitting nod to traditional Polish comfort food. Pork shoulder slow-simmered with old-school sauerkraut, smoky kielbasa chunks, juniper berries, and marjoram. Finished with a swipe of grainy mustard and a sharp dill pickle wedge.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Bigos Braised Pork', 13.50)">Add To Order</button>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image-placeholder">📷 [Image: Lentil & Mushroom Sub]</div>
+                <div class="menu-details">
+                    <div class="menu-hdr"><span>Gochujang Lentil (V)</span><span>$12.50</span></div>
+                    <div class="menu-body">Who says a great braise needs meat? Plump, earthy lentils and sliced cremini mushrooms simmered down in our signature sweet-and-spicy gochujang reduction. Topped with our crunchy sesame slaw, cucumbers, and scallions.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Gochujang Veggie Sub', 12.50)">Add To Order</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- VIEW 3: SUPPORT GEAR -->
+    <!-- VIEW 3: MERCHANDISE STORE -->
     <div id="merch-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">FOUNDER GEAR</h1>
-        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Rep the foundation early. All gear proceeds go directly toward acquiring our mobile kitchen.</p>
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">FOND GEAR</h1>
+        <p style="text-align: center; opacity: 0.8; font-style: italic; margin-bottom: 40px; font-size: 0.95rem;">Rep the foundation of flavor wherever you go.</p>
         <div class="menu-grid">
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>
+                <div id="merch-img-tee" class="menu-image-placeholder">📷 [Image: Skillet Logo Tee]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Skillet Logo Tee</span><span>$25.00</span></div>
-                    <div class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.</div>
+                    <div class="menu-hdr"><span id="merch-title-tee">Skillet Logo Tee</span><span>$25.00</span></div>
+                    <div id="merch-body-tee" class="menu-body">Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.</div>
                     <select id="size-tee" class="item-options-select" title="Select Size">
                         <option value="S">Small</option>
                         <option value="M" selected>Medium</option>
                         <option value="L">Large</option>
                         <option value="XL">X-Large</option>
+                        <option value="XXL">XXL</option>
                     </select>
-                    <button class="add-to-cart-btn" onclick="registerItemWithOption('Skillet Logo Tee', 25.00, 'size-tee')">Add To Bag</button>
+                    <button id="merch-btn-tee" class="add-to-cart-btn" onclick="registerItemWithOption(document.getElementById('merch-title-tee').innerText, 25.00, 'size-tee')">Add To Bag</button>
                 </div>
             </div>
             <div class="menu-card">
-                <div class="menu-image-placeholder">📷 [Image: Skillet Logo Trucker Hat]</div>
+                <div id="merch-img-apron" class="menu-image-placeholder">📷 [Image: Skillet Logo Apron]</div>
                 <div class="menu-details">
-                    <div class="menu-hdr"><span>Skillet Logo Hat</span><span>$22.00</span></div>
-                    <div class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center.</div>
-                    <button class="add-to-cart-btn" onclick="registerItem('Skillet Logo Hat', 22.00)">Add To Bag</button>
+                    <div class="menu-hdr"><span id="merch-title-apron">Skillet Logo Apron</span><span>$35.00</span></div>
+                    <div class="menu-body">Heavy-duty utility canvas cooking apron built for serious line work, flat-top prep, or backyard smoking. Engineered with cross-back straps, brass hardware accents, and dual utility pockets. One size fits most.</div>
+                    <button id="merch-btn-apron" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-apron').innerText, 35.00)">Add To Bag</button>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div id="merch-img-hat" class="menu-image-placeholder">📷 [Image: Skillet Logo Trucker Hat]</div>
+                <div class="menu-details">
+                    <div class="menu-hdr"><span id="merch-title-hat">Skillet Logo Trucker Hat</span><span>$22.00</span></div>
+                    <div id="merch-body-hat" class="menu-body">Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.</div>
+                    <button id="merch-btn-hat" class="add-to-cart-btn" onclick="registerItem(document.getElementById('merch-title-hat').innerText, 22.00)">Add To Bag</button>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image-placeholder">📷 [Image: Fond Vinyl Sticker Pack]</div>
+                <div class="menu-details">
+                    <div class="menu-hdr"><span>Fond Vinyl Sticker Pack</span><span>$4.00</span></div>
+                    <div id="merch-body-stickers" class="menu-body">Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.</div>
+                    <button class="add-to-cart-btn" onclick="registerItem('Fond Vinyl Sticker Pack', 4.00)">Add To Bag</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- VIEW 4: CATERING -->
+    <!-- VIEW 4: TRUCK TRACKER -->
+    <div id="schedule-view" class="view-content">
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">TRUCK TRACKER</h1>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Where we're rolling this week across Southern NH and Eastern MA.</p>
+        
+        <div class="map-placeholder">
+            🗺️ [Interactive Map Placeholder]
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="background: var(--card-bg); padding: 20px; border-left: 4px solid var(--accent-primary);">
+                <strong style="font-size: 1.2rem; color: var(--accent-primary);">Friday July 17</strong><br>
+                <em style="opacity: 0.9;">Food Truck Park</em> — 252 Willow St, Manchester, NH
+            </div>
+            <div style="background: var(--card-bg); padding: 20px; border-left: 4px solid var(--accent-primary);">
+                <strong style="font-size: 1.2rem; color: var(--accent-primary);">Friday July 24 - Sunday July 26</strong><br>
+                <em style="opacity: 0.9;">Lowell Folk Fest</em> — Boarding House Park, Lowell, MA
+            </div>
+            <div style="background: var(--card-bg); padding: 20px; border-left: 4px solid var(--accent-primary);">
+                <strong style="font-size: 1.2rem; color: var(--accent-primary);">August 1</strong><br>
+                <em style="opacity: 0.9;">Private Event</em> — <a onclick="navigateToView('catering-view')" style="color: var(--accent-secondary); text-decoration: underline; cursor: pointer; font-weight: bold;">[Book your own event]</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 5: CATERING -->
     <div id="catering-view" class="view-content">
-        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">PRE-BOOK THE TRUCK</h1>
-        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Planning a corporate gig, private blowout, or event for late 2026? Put your name on our roadmap early.</p>
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 5px;">BOOK THE TRUCK</h1>
+        <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">Skip the boring catering. Bring our slow-cooked braises straight to your next event.</p>
         <form id="cateringForm" onsubmit="processFormSubmission(event)">
             <input type="text" placeholder="Your Name" required>
             <input type="email" placeholder="Email Address" required>
@@ -403,7 +458,7 @@
             
             <div style="display: flex; gap: 15px;">
                 <select id="catering-state" required style="flex: 1;" onchange="updateCateringCities()" title="Select State">
-                    <option value="" disabled selected>Select State/Region</option>
+                    <option value="" disabled selected>Select State</option>
                     <option value="NH">New Hampshire</option>
                     <option value="MA">Massachusetts</option>
                 </select>
@@ -413,16 +468,16 @@
                 </select>
             </div>
             
-            <textarea rows="4" placeholder="Tell us about your event venue, target timeline, or layout details...." required></textarea>
+            <textarea rows="4" placeholder="Tell us a bit about your event (Vibe, location details, custom requests, etc.)...." required></textarea>
             
-            <button type="submit" class="action-button">Submit Pre-Launch Inquiry</button>
+            <button type="submit" class="action-button">Send Booking Request</button>
         </form>
     </div>
 
     <!-- CART SIDE DRAWER -->
     <div id="cart-drawer">
         <div class="cart-header">
-            <h3 style="font-family: 'Oswald', sans-serif; margin: 0; font-size: 1.1rem; letter-spacing: 0.5px;">YOUR CART</h3>
+            <h3 style="font-family: 'Oswald', sans-serif; margin: 0; font-size: 1.1rem; letter-spacing: 0.5px;">YOUR ORDER</h3>
             <span class="close-cart" onclick="toggleCartDrawer()">✕ CLOSE</span>
         </div>
         <div id="cart-items-container">
@@ -433,13 +488,13 @@
                 <span>TOTAL:</span>
                 <span id="cart-cost-display">$0.00</span>
             </div>
-            <button class="action-button" style="width: 100%; font-size: 1.2rem; letter-spacing: 0.5px;" onclick="executeSimulatedCheckout()">Order Pre-Launch Merch</button>
+            <button class="action-button" style="width: 100%; font-size: 1.2rem; letter-spacing: 0.5px;" onclick="executeSimulatedCheckout()">Order Ahead Pickup</button>
         </div>
     </div>
 
     <!-- FLOATING CART BADGE -->
     <div id="floating-cart-badge" onclick="toggleCartDrawer()">
-        📦 <span>SUPPORT BAG</span> (<span id="badge-count-value">0</span>)
+        🥖 <span>ORDER AHEAD</span> (<span id="badge-count-value">0</span>)
     </div>
 
     <!-- JAVASCRIPT APPLICATION CORE -->
@@ -447,11 +502,13 @@
         let shoppingCart = [];
         let runningTotal = 0;
 
+        // Regional City Directory Schema
         const cityMapData = {
             "NH": ["Manchester", "Nashua", "Concord", "Portsmouth", "Salem", "Derry", "Bedford"],
             "MA": ["Boston", "Lowell", "Lawrence", "Tewksbury", "Chelmsford", "Andover", "Haverhill"]
         };
 
+        // Router Control
         function navigateToView(viewId) {
             document.querySelectorAll('.view-content').forEach(view => {
                 view.classList.remove('active-view');
@@ -460,6 +517,62 @@
             window.scrollTo(0,0);
         }
 
+        // Dynamic Theme & Content Switcher Engine
+        function swapTheme(themeName) {
+            const bodyElement = document.body;
+            
+            // Merch DOM Elements to mutate text dynamically between themes
+            const teeTitle = document.getElementById('merch-title-tee');
+            const teeBody = document.getElementById('merch-body-tee');
+            const teeImg = document.getElementById('merch-img-tee');
+            
+            const apronTitle = document.getElementById('merch-title-apron');
+            const apronImg = document.getElementById('merch-img-apron');
+            
+            const hatTitle = document.getElementById('merch-title-hat');
+            const hatBody = document.getElementById('merch-body-hat');
+            const hatImg = document.getElementById('merch-img-hat');
+            
+            const stickersBody = document.getElementById('merch-body-stickers');
+
+            if (themeName === 'default') {
+                bodyElement.removeAttribute('data-theme');
+                
+                // Revert text definitions to Skillet variant
+                teeTitle.innerText = "Skillet Logo Tee";
+                teeBody.innerText = "Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom cast-iron skillet emblem bold and centered across the chest.";
+                teeImg.innerText = "📷 [Image: Skillet Logo Tee]";
+                
+                apronTitle.innerText = "Skillet Logo Apron";
+                apronImg.innerText = "📷 [Image: Skillet Logo Apron]";
+                
+                hatTitle.innerText = "Skillet Logo Trucker Hat";
+                hatBody.innerText = "Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered cast-iron emblem patch front and center. One size fits most.";
+                hatImg.innerText = "📷 [Image: Skillet Logo Trucker Hat]";
+                
+                stickersBody.innerText = "Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Skillet Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.";
+            } else {
+                bodyElement.setAttribute('data-theme', themeName);
+                
+                if (themeName === 'premium-navy') {
+                    // Mutate text definitions to Carving Fork variant
+                    teeTitle.innerText = "Carving Fork Logo Tee";
+                    teeBody.innerText = "Ultra-soft, heavyweight 100% cotton crewneck built to handle kitchen heat or everyday wear. Features our custom carving fork emblem bold and centered across the chest.";
+                    teeImg.innerText = "📷 [Image: Carving Fork Logo Tee]";
+                    
+                    apronTitle.innerText = "Carving Fork Logo Apron";
+                    apronImg.innerText = "📷 [Image: Carving Fork Logo Apron]";
+                    
+                    hatTitle.innerText = "Carving Fork Trucker Hat";
+                    hatBody.innerText = "Classic, high-profile structured snapback trucker cap complete with premium breathability mesh panels and our signature embroidered carving fork emblem patch front and center. One size fits most.";
+                    hatImg.innerText = "📷 [Image: Carving Fork Trucker Hat]";
+                    
+                    stickersBody.innerText = "Three custom, weatherproof, scratch-resistant die-cut vinyl stickers for your cooler or bottle. Includes our signature Carving Fork Logo Sticker, the classic Sandwich Sticker, and the official Fond Truck Sticker.";
+                }
+            }
+        }
+
+        // Dropdown Router Logic
         function updateCateringCities() {
             const stateSelector = document.getElementById('catering-state');
             const citySelector = document.getElementById('catering-city');
@@ -480,16 +593,19 @@
             }
         }
 
+        // Drawer Toggle
         function toggleCartDrawer() {
             document.getElementById('cart-drawer').classList.toggle('open');
         }
 
+        // Standard Add To Order Function
         function registerItem(itemName, itemPrice) {
             shoppingCart.push({ name: itemName, price: itemPrice });
             runningTotal += itemPrice;
             updateCartDisplay();
         }
 
+        // Add To Order Function explicitly recognizing sizing selection attributes
         function registerItemWithOption(baseName, itemPrice, selectId) {
             const variantOption = document.getElementById(selectId).value;
             const completeNameString = `${baseName} (${variantOption})`;
@@ -498,6 +614,7 @@
             updateCartDisplay();
         }
 
+        // Render Routine
         function updateCartDisplay() {
             const container = document.getElementById('cart-items-container');
             const badgeCount = document.getElementById('badge-count-value');
@@ -522,10 +639,10 @@
 
         function executeSimulatedCheckout() {
             if (shoppingCart.length === 0) {
-                alert("Your bag is empty! Add some founder merch first.");
+                alert("Your bag is empty! Add some subs or gear first.");
                 return;
             }
-            alert(`Awesome! You've simulated a checkout of $${runningTotal.toFixed(2)} to help fund FOND's launch. We'll capture real payments once our systems are live!`);
+            alert(`Order Ahead captured!\nTotal: $${runningTotal.toFixed(2)}\nWe're firing up the flat-top. Your order will be ready for lightning-fast window pickup in 90 seconds!`);
             shoppingCart = [];
             runningTotal = 0;
             updateCartDisplay();
@@ -536,16 +653,10 @@
             event.preventDefault();
             const chosenCity = document.getElementById('catering-city').value;
             const chosenState = document.getElementById('catering-state').value;
-            alert(`Inquiry captured! Once the mobile trailer is certified and rolling, we will hit you back to discuss booking in ${chosenCity}, ${chosenState}.`);
+            alert(`Boom! Request sent for an event in ${chosenCity}, ${chosenState}. The FOND crew will check the truck calendar and hit you back within 24 hours.`);
             document.getElementById('cateringForm').reset();
             document.getElementById('catering-city').disabled = true;
             navigateToView('home-view');
-        }
-
-        function handleSignup(event) {
-            event.preventDefault();
-            alert("Success! You're in. We will email you with build updates, Kickstarter milestones, and where we land our first local pop-up/market slots!");
-            document.getElementById('prelaunch-signup').reset();
         }
     </script>
 </body>
