@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FOND - Braised Meat Subs</title>
+
+    <!-- Favicon (reuses the site's existing logo asset) -->
+    <link rel="icon" type="image/png" href="https://kepacarey.github.io/fondbraised/cast-iron-logo.png">
+
+    <!-- Search Engine / Share Preview -->
+    <meta name="description" content="Fond is a food truck in the making — braised and shredded meats piled onto toasted bolillo rolls. Follow our build from pop-up stalls to the open road, and back us on Kickstarter.">
+
+    <!-- Open Graph (Facebook, iMessage, Discord, most link previews) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FOND — Braised Meat Subs">
+    <meta property="og:description" content="Braised and shredded meats piled onto toasted bolillo rolls. Follow our journey from pop-ups to the open road.">
+    <meta property="og:image" content="https://kepacarey.github.io/fondbraised/cast-iron-logo.png">
+    <meta property="og:url" content="https://kepacarey.github.io/fondbraised/">
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FOND — Braised Meat Subs">
+    <meta name="twitter:description" content="Braised and shredded meats piled onto toasted bolillo rolls. Follow our journey from pop-ups to the open road.">
+    <meta name="twitter:image" content="https://kepacarey.github.io/fondbraised/cast-iron-logo.png">
     <!-- Google Fonts Framework -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@700;900&family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;600;800&family=Oswald:wght@600;700&family=Outfit:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
@@ -264,6 +283,44 @@
 
         /* Truck Tracker Layout */
         .map-embed { height: 400px; max-width: 900px; margin: 0 auto 30px auto; border: var(--border-style); overflow: hidden; }
+
+        /* Site Footer */
+        .site-footer {
+            text-align: center;
+            padding: 40px 20px 30px 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(243,234,211,0.1);
+        }
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 18px;
+        }
+        .footer-socials a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            opacity: 0.6;
+            cursor: default;
+        }
+        .footer-contact {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin: 0 0 10px 0;
+        }
+        .footer-contact a {
+            color: var(--accent-secondary);
+            text-decoration: underline;
+        }
+        .footer-copyright {
+            font-size: 0.75rem;
+            opacity: 0.4;
+            margin: 0;
+        }
 
         /* Functional Form Framework */
         form { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 30px auto; }
@@ -528,6 +585,19 @@
             </form>
         </div>
     </div>
+
+    <!-- SITE FOOTER (persists across all views) -->
+    <footer class="site-footer">
+        <div class="footer-socials">
+            <!-- Placeholders — swap these hrefs in once social accounts are decided -->
+            <a href="#" title="TikTok (coming soon)">TikTok</a>
+            <a href="#" title="Instagram (coming soon)">Instagram</a>
+            <a href="#" title="YouTube (coming soon)">YouTube</a>
+            <a href="#" title="Bluesky (coming soon)">Bluesky</a>
+        </div>
+        <p class="footer-contact">Questions? Reach us at <a href="mailto:fondbraised@outlook.com">fondbraised@outlook.com</a></p>
+        <p class="footer-copyright">&copy; 2026 Fond. All rights reserved.</p>
+    </footer>
 
     <!-- JAVASCRIPT APPLICATION CORE -->
     <script {nonce}>
