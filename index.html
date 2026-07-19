@@ -302,6 +302,8 @@
             }
         }
     </style>
+    <!-- EmailJS SDK — sends the confirmation email to the person who submitted a form -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -514,6 +516,14 @@
                 <input type="hidden" name="_subject" value="New Fond Catering Interest Signup">
                 <input type="text" id="catering-firstname" name="firstName" placeholder="First Name" required>
                 <input type="email" id="catering-email" name="email" placeholder="Email Address" required>
+                <select id="catering-event-type" name="eventType" required title="What type of event?">
+                    <option value="" disabled selected>What type of event?</option>
+                    <option value="Private Party">Private Party</option>
+                    <option value="Business / Corporate">Business / Corporate Event</option>
+                    <option value="Wedding">Wedding</option>
+                    <option value="Community / Nonprofit">Community or Nonprofit Event</option>
+                    <option value="Other">Other</option>
+                </select>
                 <button type="submit" class="action-button full-width">Join The Catering Waitlist</button>
             </form>
         </div>
@@ -525,6 +535,14 @@
         // (Create two separate forms there — one for each signup below — so submissions land in separate inboxes.)
         const FORMSPREE_SIGNUP_ENDPOINT = "https://formspree.io/f/xdaqgpjl";
         const FORMSPREE_CATERING_ENDPOINT = "https://formspree.io/f/mqerqgjg";
+
+        // EmailJS Config — sends the "you're on the list" confirmation to the person who submitted
+        // Get these from emailjs.com after creating an account, an email service (e.g. Gmail), and two templates.
+        const EMAILJS_PUBLIC_KEY = "REPLACE_WITH_YOUR_EMAILJS_PUBLIC_KEY";
+        const EMAILJS_SERVICE_ID = "REPLACE_WITH_YOUR_EMAILJS_SERVICE_ID";
+        const EMAILJS_SIGNUP_TEMPLATE_ID = "REPLACE_WITH_YOUR_SIGNUP_TEMPLATE_ID";
+        const EMAILJS_CATERING_TEMPLATE_ID = "REPLACE_WITH_YOUR_CATERING_TEMPLATE_ID";
+        emailjs.init(EMAILJS_PUBLIC_KEY);
 
         // Router Control
         function navigateToView(viewId) {
@@ -549,6 +567,15 @@
                     headers: { 'Accept': 'application/json' }
                 });
                 if (!response.ok) throw new Error('Submission failed');
+
+                // Fire the confirmation email — don't let a failure here block the success message,
+                // since the lead was already captured by Formspree above.
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_SIGNUP_TEMPLATE_ID, {
+                    to_name: firstNameValue,
+                    to_email: emailValue,
+                    message: "Thanks for signing up for Fond updates! We'll email you the moment we book a pop-up or market stall, move to the next phase of our build, or have any other Fond news to share."
+                }).catch(emailError => console.error("Confirmation email failed to send:", emailError));
+
                 alert(`Welcome to the Fond family, ${firstNameValue}! We'll email ${emailValue} the moment we book a pop-up or market stall, move to the next phase of our build, or have any other Fond news to share.`);
                 form.reset();
             } catch (error) {
@@ -569,6 +596,12 @@
                     headers: { 'Accept': 'application/json' }
                 });
                 if (!response.ok) throw new Error('Submission failed');
+
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CATERING_TEMPLATE_ID, {
+                    to_name: firstNameValue,
+                    to_email: emailValue
+                }).catch(emailError => console.error("Confirmation email failed to send:", emailError));
+
                 alert(`You're on the list, ${firstNameValue}! We'll email ${emailValue} the moment catering is ready to book.`);
                 form.reset();
                 navigateToView('home-view');
