@@ -377,8 +377,9 @@
                 <h3>Get Launch Alerts</h3>
                 <p>Be the absolute first to know when we book a pop-up or market stall, move to the next phase of our build, or have any other Fond news to share.</p>
                 <form id="signupForm" onsubmit="processSignupSubmission(event)">
-                    <input type="text" id="signup-firstname" placeholder="First Name" required>
-                    <input type="email" id="signup-email" placeholder="Email Address" required>
+                    <input type="hidden" name="_subject" value="New Fond Launch Alert Signup">
+                    <input type="text" id="signup-firstname" name="firstName" placeholder="First Name" required>
+                    <input type="email" id="signup-email" name="email" placeholder="Email Address" required>
                     <button type="submit" class="action-button full-width">Join The Fond Family</button>
                 </form>
             </div>
@@ -510,8 +511,9 @@
         <p style="text-align: center; margin-bottom: 40px; font-size: 0.95rem;">We're not booking events just yet, but we'd love to know you're interested. Drop your info below and we'll reach out the moment catering opens up.</p>
         <div class="prelaunch-card" style="max-width: 500px; margin: 0 auto; text-align: center;">
             <form id="cateringForm" onsubmit="processFormSubmission(event)">
-                <input type="text" id="catering-firstname" placeholder="First Name" required>
-                <input type="email" id="catering-email" placeholder="Email Address" required>
+                <input type="hidden" name="_subject" value="New Fond Catering Interest Signup">
+                <input type="text" id="catering-firstname" name="firstName" placeholder="First Name" required>
+                <input type="email" id="catering-email" name="email" placeholder="Email Address" required>
                 <button type="submit" class="action-button full-width">Join The Catering Waitlist</button>
             </form>
         </div>
@@ -519,6 +521,11 @@
 
     <!-- JAVASCRIPT APPLICATION CORE -->
     <script {nonce}>
+        // Formspree Endpoints — replace these with your real form URLs from formspree.io
+        // (Create two separate forms there — one for each signup below — so submissions land in separate inboxes.)
+        const FORMSPREE_SIGNUP_ENDPOINT = "https://formspree.io/f/xdaqgpjl";
+        const FORMSPREE_CATERING_ENDPOINT = "https://formspree.io/f/mqerqgjg";
+
         // Router Control
         function navigateToView(viewId) {
             document.querySelectorAll('.view-content').forEach(view => {
@@ -529,24 +536,46 @@
         }
 
         // Pre-Launch Email Signup Handler
-        function processSignupSubmission(event) {
+        async function processSignupSubmission(event) {
             event.preventDefault();
+            const form = document.getElementById('signupForm');
             const firstNameValue = document.getElementById('signup-firstname').value;
             const emailValue = document.getElementById('signup-email').value;
-            alert(`Welcome to the Fond family, ${firstNameValue}! We'll email ${emailValue} the moment we book a pop-up or market stall, move to the next phase of our build, or have any other Fond news to share.`);
-            document.getElementById('signupForm').reset();
+
+            try {
+                const response = await fetch(FORMSPREE_SIGNUP_ENDPOINT, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!response.ok) throw new Error('Submission failed');
+                alert(`Welcome to the Fond family, ${firstNameValue}! We'll email ${emailValue} the moment we book a pop-up or market stall, move to the next phase of our build, or have any other Fond news to share.`);
+                form.reset();
+            } catch (error) {
+                alert("Hmm, something went wrong submitting that. Mind trying again in a moment?");
+            }
         }
 
-        function processFormSubmission(event) {
+        async function processFormSubmission(event) {
             event.preventDefault();
+            const form = document.getElementById('cateringForm');
             const firstNameValue = document.getElementById('catering-firstname').value;
             const emailValue = document.getElementById('catering-email').value;
-            alert(`You're on the list, ${firstNameValue}! We'll email ${emailValue} the moment catering is ready to book.`);
-            document.getElementById('cateringForm').reset();
-            navigateToView('home-view');
+
+            try {
+                const response = await fetch(FORMSPREE_CATERING_ENDPOINT, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!response.ok) throw new Error('Submission failed');
+                alert(`You're on the list, ${firstNameValue}! We'll email ${emailValue} the moment catering is ready to book.`);
+                form.reset();
+                navigateToView('home-view');
+            } catch (error) {
+                alert("Hmm, something went wrong submitting that. Mind trying again in a moment?");
+            }
         }
     </script>
-</body>
-</html>
 </body>
 </html>
