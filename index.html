@@ -188,6 +188,40 @@
             margin: 0 auto 70px auto;
             padding: 0 20px;
         }
+
+        /* Team Grid — auto-fits columns to the row, caps card width so a lone card doesn't stretch too wide */
+        /* Team Grid — flexbox for predictable, guaranteed gaps between cards */
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+        .team-card {
+            background: var(--card-bg);
+            border: var(--border-style);
+            padding: 25px;
+            width: 210px;
+            box-sizing: border-box;
+        }
+        .team-avatar-placeholder {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 1px dashed rgba(243,234,211,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px auto;
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            line-height: 1;
+            color: rgba(243,234,211,0.3);
+        }
+
         .prelaunch-card {
             background: var(--card-bg);
             border: var(--border-style);
@@ -371,6 +405,7 @@
         </div>
         <nav>
             <a onclick="navigateToView('home-view')">Home</a>
+            <a onclick="navigateToView('about-view')">About</a>
             <a onclick="navigateToView('menu-view')">The Menu</a>
             <a onclick="navigateToView('schedule-view')">Truck Tracker</a>
             <a onclick="navigateToView('catering-view')">Catering</a>
@@ -441,6 +476,40 @@
                     <input type="email" id="signup-email" name="email" placeholder="Email Address" required>
                     <button type="submit" class="action-button full-width">Join The Fond Family</button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 1.5: ABOUT -->
+    <div id="about-view" class="view-content">
+        <h1 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; font-size: 2.5rem; margin-bottom: 30px;">MEET THE TEAM</h1>
+
+        <!-- Founder bio — wide standalone card so paragraphs actually have room to breathe -->
+        <div class="prelaunch-card" style="max-width: 700px; margin: 0 auto 40px auto; text-align: left;">
+            <!-- Placeholder photo — swap for a dedicated Chef Kevvo photo when available -->
+            <img src="chef-kevvo-placeholder.jpg" alt="Chef Kevvo" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; display: block; margin: 0 auto 25px auto; border: var(--border-style);">
+            <h3 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; color: var(--accent-primary); font-size: 1.3rem; margin: 0 0 5px 0;">Chef Kevvo</h3>
+            <p style="text-align: center; opacity: 0.7; font-style: italic; font-size: 0.85rem; margin: 0 0 20px 0;">Founder &amp; CEO</p>
+            <p style="margin-bottom: 20px; line-height: 1.7;">Four years as a service leader at one of the country's biggest fast-casual chains taught me how to feed hundreds of people an hour without ever slowing down. But it also taught me how easily good food and honest customer service get treated as an afterthought once profit takes the lead. I wanted to try it the other way. Food first, people first, always.</p>
+            <p style="margin: 0; line-height: 1.7;">Fond, from the French word for foundation, is the concentrated flavor left behind in the pan after a good sear. The deepest flavors of your dish, concentrated. Deglaze it, and it becomes the start of a sauce, a gravy, a braise. Nothing is more important than a strong foundation, in cooking, in business, in life. I'm fond of cooking, and fond of meeting people to share my cooking with. My hope is you end up fond of it too.</p>
+        </div>
+
+        <!-- Rest of the team — compact cards, since these are placeholders with minimal content -->
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar-placeholder">?</div>
+                <h3 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; color: var(--accent-primary); font-size: 1.3rem; margin: 0 0 5px 0;">[Name]</h3>
+                <p style="text-align: center; opacity: 0.6; font-style: italic; font-size: 0.85rem; margin: 0;">Chief<br>Operations Officer</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar-placeholder">?</div>
+                <h3 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; color: var(--accent-primary); font-size: 1.3rem; margin: 0 0 5px 0;">[Name]</h3>
+                <p style="text-align: center; opacity: 0.6; font-style: italic; font-size: 0.85rem; margin: 0;">Chief<br>Catering Officer</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar-placeholder">?</div>
+                <h3 style="text-align: center; font-family: var(--font-heading); text-transform: uppercase; color: var(--accent-primary); font-size: 1.3rem; margin: 0 0 5px 0;">[Name]</h3>
+                <p style="text-align: center; opacity: 0.6; font-style: italic; font-size: 0.85rem; margin: 0;">Chief<br>Social Media Officer</p>
             </div>
         </div>
     </div>
